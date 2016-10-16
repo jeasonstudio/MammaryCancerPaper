@@ -3,3 +3,7 @@
 
 # Ada Library Information
 *.ali
+
+node_modules/
+
+*/npm-debug.log
