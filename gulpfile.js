@@ -25,7 +25,7 @@ var handleError = function (err) {
 }
 
 gulp.task('watchjs', function () {
-    gulp.watch('src/js/**/*.js', function (event) {
+    gulp.watch('src/js/*.js', function (event) {
         var paths = watchPath(event, 'src/', 'dist/')
         /*
         paths
@@ -53,7 +53,7 @@ gulp.task('watchjs', function () {
 
 gulp.task('uglifyjs', function () {
     var combined = combiner.obj([
-        gulp.src('src/js/**/*.js'),
+        gulp.src('src/js/*.js'),
         sourcemaps.init(),
         uglify(),
         sourcemaps.write('./'),
@@ -64,7 +64,7 @@ gulp.task('uglifyjs', function () {
 
 
 gulp.task('watchcss', function () {
-    gulp.watch('src/css/**/*.css', function (event) {
+    gulp.watch('src/css/*.css', function (event) {
         var paths = watchPath(event, 'src/', 'dist/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
@@ -82,7 +82,7 @@ gulp.task('watchcss', function () {
 })
 
 gulp.task('minifycss', function () {
-    gulp.src('src/css/**/*.css')
+    gulp.src('src/css/*.css')
         .pipe(sourcemaps.init())
         .pipe(autoprefixer({
           browsers: 'last 2 versions'
@@ -92,45 +92,8 @@ gulp.task('minifycss', function () {
         .pipe(gulp.dest('dist/css/'))
 })
 
-gulp.task('watchless', function () {
-    gulp.watch('src/less/**/*.less', function (event) {
-        var paths = watchPath(event, 'src/less/', 'dist/css/')
-
-        gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
-        gutil.log('Dist ' + paths.distPath)
-        var combined = combiner.obj([
-            gulp.src(paths.srcPath),
-            sourcemaps.init(),
-            autoprefixer({
-              browsers: 'last 2 versions'
-            }),
-            less(),
-            minifycss(),
-            sourcemaps.write('./'),
-            gulp.dest(paths.distDir)
-        ])
-        combined.on('error', handleError)
-    })
-})
-
-gulp.task('lesscss', function () {
-    var combined = combiner.obj([
-            gulp.src('src/less/**/*.less'),
-            sourcemaps.init(),
-            autoprefixer({
-              browsers: 'last 2 versions'
-            }),
-            less(),
-            minifycss(),
-            sourcemaps.write('./'),
-            gulp.dest('dist/css/')
-        ])
-    combined.on('error', handleError)
-})
-
-
 gulp.task('watchsass',function () {
-    gulp.watch('src/sass/**/*', function (event) {
+    gulp.watch('src/sass/*', function (event) {
         var paths = watchPath(event, 'src/sass/', 'dist/css/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
@@ -164,7 +127,7 @@ gulp.task('sasscss', function () {
 })
 
 gulp.task('watchimage', function () {
-    gulp.watch('src/images/**/*', function (event) {
+    gulp.watch('src/images/*', function (event) {
         var paths = watchPath(event,'src/','dist/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
@@ -179,7 +142,7 @@ gulp.task('watchimage', function () {
 })
 
 gulp.task('image', function () {
-    gulp.src('src/images/**/*')
+    gulp.src('src/images/*')
         .pipe(imagemin({
             progressive: true
         }))
@@ -187,7 +150,7 @@ gulp.task('image', function () {
 })
 
 gulp.task('watchcopy', function () {
-    gulp.watch('src/fonts/**/*', function (event) {
+    gulp.watch('src/fonts/*', function (event) {
         var paths = watchPath(event,'src/', 'dist/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
@@ -199,11 +162,11 @@ gulp.task('watchcopy', function () {
 })
 
 gulp.task('copy', function () {
-    gulp.src('src/fonts/**/*')
+    gulp.src('src/fonts/*')
         .pipe(gulp.dest('dist/fonts/'))
 })
 
 
 
 
-gulp.task('default', ['watchjs', 'watchcss', 'watchless', 'watchsass', 'watchimage', 'watchcopy'])
+gulp.task('default', ['watchjs', 'watchcss' , 'watchsass', 'watchimage', 'watchcopy'])
