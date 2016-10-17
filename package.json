@@ -5,8 +5,9 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp default",
-    "build": "gulp build"
+    "start": "gulp default | http-server -a 0.0.0.0 -p 8000",
+    "build": "gulp build",
+    "server": "http-server -a 0.0.0.0 -p 8000"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "gulp-util": "^3.0.4",
     "gulp-watch-path": "^0.1.0",
     "gulp-wrap": "^0.11.0",
+    "http-server": "^0.9.0",
     "stream-combiner2": "^1.0.2"
   },
   "author": "USTB",
