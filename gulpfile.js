@@ -27,15 +27,15 @@ var handleError = function (err) {
 gulp.task('watchjs', function () {
     gulp.watch('./src/js/*.js', function (event) {
         var paths = watchPath(event, './src/', 'dist/')
-        /*
-        paths
-            { srcPath: './src/js/log.js',
-              srcDir: './src/js/',
-              distPath: 'dist/js/log.js',
-              distDir: 'dist/js/',
-              srcFilename: 'log.js',
-              distFilename: 'log.js' }
-        */
+            /*
+            paths
+                { srcPath: './src/js/log.js',
+                  srcDir: './src/js/',
+                  distPath: 'dist/js/log.js',
+                  distDir: 'dist/js/',
+                  srcFilename: 'log.js',
+                  distFilename: 'log.js' }
+            */
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
         gutil.log('Dist ' + paths.distPath)
 
@@ -73,7 +73,7 @@ gulp.task('watchcss', function () {
         gulp.src(paths.srcPath)
             // .pipe(sourcemaps.init())
             .pipe(autoprefixer({
-              browsers: 'last 2 versions'
+                browsers: 'last 2 versions'
             }))
             .pipe(minifycss())
             // .pipe(sourcemaps.write('./'))
@@ -85,7 +85,7 @@ gulp.task('minifycss', function () {
     gulp.src('./src/css/*.css')
         // .pipe(sourcemaps.init())
         .pipe(autoprefixer({
-          browsers: 'last 2 versions'
+            browsers: 'last 2 versions'
         }))
         .pipe(minifycss())
         // .pipe(sourcemaps.write('./'))
@@ -128,7 +128,7 @@ gulp.task('minifycss', function () {
 
 gulp.task('watchimage', function () {
     gulp.watch('./src/images/*', function (event) {
-        var paths = watchPath(event,'./src/','dist/')
+        var paths = watchPath(event, './src/', 'dist/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
         gutil.log('Dist ' + paths.distPath)
@@ -151,7 +151,25 @@ gulp.task('image', function () {
 
 gulp.task('watchcopy', function () {
     gulp.watch('./src/fonts/*', function (event) {
-        var paths = watchPath(event,'./src/', 'dist/')
+        var paths = watchPath(event, './src/', 'dist/')
+
+        gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
+        gutil.log('Dist ' + paths.distPath)
+
+        gulp.src(paths.srcPath)
+            .pipe(gulp.dest(paths.distDir))
+    })
+    gulp.watch('./src/js/*', function (event) {
+        var paths = watchPath(event, './src/', 'dist/')
+
+        gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
+        gutil.log('Dist ' + paths.distPath)
+
+        gulp.src(paths.srcPath)
+            .pipe(gulp.dest(paths.distDir))
+    })
+    gulp.watch('./src/css/*', function (event) {
+        var paths = watchPath(event, './src/', 'dist/')
 
         gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
         gutil.log('Dist ' + paths.distPath)
@@ -164,11 +182,20 @@ gulp.task('watchcopy', function () {
 gulp.task('copy', function () {
     gulp.src('./src/fonts/*')
         .pipe(gulp.dest('dist/fonts/'))
+    gulp.src('./src/js/*')
+        .pipe(gulp.dest('dist/js/'))
+    gulp.src('./src/css/*')
+        .pipe(gulp.dest('dist/css/'))
+})
+
+gulp.task('copyFonts', function () {
+    gulp.src('./src/fonts/*')
+        .pipe(gulp.dest('dist/fonts/'))
 })
 
 
 
 
-gulp.task('default', [ 'image' , 'watchjs', 'watchcss' , 'watchimage', 'watchcopy'])
+gulp.task('default', ['image', 'copy', 'watchjs', 'watchcss', 'watchimage', 'watchcopy'])
 
-gulp.task('build', [ 'image' , 'uglifyjs' , 'minifycss' , 'watchjs', 'watchcss' , 'watchimage', 'watchcopy'])
+gulp.task('build', ['image', 'copyFonts', 'uglifyjs', 'minifycss', 'watchjs', 'watchcss', 'watchimage', 'watchcopy'])
