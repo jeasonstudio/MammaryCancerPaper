@@ -198,4 +198,4 @@ gulp.task('copyFonts', function () {
 
 gulp.task('default', ['image', 'copy', 'watchjs', 'watchcss', 'watchimage', 'watchcopy'])
 
-gulp.task('build', ['image', 'copyFonts', 'uglifyjs', 'minifycss', 'watchjs', 'watchcss', 'watchimage', 'watchcopy'])
+gulp.task('build', ['watchjs', 'watchcss', 'watchimage', 'watchcopy', 'image', 'copyFonts', 'uglifyjs', 'minifycss'])

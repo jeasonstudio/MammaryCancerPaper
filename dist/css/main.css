@@ -1,1 +1,15 @@
-html{text-align:center}
+html {
+    text-align: center;
+}
+
+* {
+    font-family: 微软雅黑;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.main {
+    color: #fff;
+}
