@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.css"],"names":[],"mappings":"AAAA,EACI,WAAA,OAGJ,gBACI,OAAA,MACA,iBAAA","file":"main.css","sourcesContent":["* {\n    text-align: center;\n}\n\n.swiper-wrapper {\n    height: 500px;\n    background-color: green;\n}"]}
