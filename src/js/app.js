@@ -14,4 +14,14 @@ var app = angular.module('myApp', ["ngRoute"])
 
 app.controller('mainCtrl', function ($scope, $http) {
     console.log("222");
+    var swiper = new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        touchMoveStopPropagation: true, //阻止冒泡
+        paginationClickable: true,
+        pagination: '.swiper-pagination',
+        flip: {
+            slideShadows: false
+        },
+    });
 });
