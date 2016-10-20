@@ -1,19 +1,17 @@
-
-
-
 //启动入口
 var app = angular.module('myApp', ["ngRoute"])
-    .config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.when("", "/main");
-        $stateProvider
-            .state('main', {
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/', {
                 url: "/main",
                 templateUrl: "html/main.html",
                 controller: "mainCtrl"
             })
-    });
+            .otherwise({
+                redirectTo: '/'
+            });
+    }]);
 
-
-app.controller('mainCtrl',function ($scope, $http) {
-    alert("222");
+app.controller('mainCtrl', function ($scope, $http) {
+    console.log("222");
 });
