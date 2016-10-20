@@ -41,9 +41,9 @@ gulp.task('watchjs', function () {
 
         var combined = combiner.obj([
             gulp.src(paths.srcPath),
-            // sourcemaps.init(),
+            sourcemaps.init(),
             uglify(),
-            // sourcemaps.write('./'),
+            sourcemaps.write('./'),
             gulp.dest(paths.distDir)
         ])
 
@@ -54,9 +54,9 @@ gulp.task('watchjs', function () {
 gulp.task('uglifyjs', function () {
     var combined = combiner.obj([
         gulp.src('./src/js/*.js'),
-        // sourcemaps.init(),
+        sourcemaps.init(),
         uglify(),
-        // sourcemaps.write('./'),
+        sourcemaps.write('./'),
         gulp.dest('dist/js/')
     ])
     combined.on('error', handleError)
@@ -71,24 +71,24 @@ gulp.task('watchcss', function () {
         gutil.log('Dist ' + paths.distPath)
 
         gulp.src(paths.srcPath)
-            // .pipe(sourcemaps.init())
+            .pipe(sourcemaps.init())
             .pipe(autoprefixer({
                 browsers: 'last 2 versions'
             }))
             .pipe(minifycss())
-            // .pipe(sourcemaps.write('./'))
+            .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest(paths.distDir))
     })
 })
 
 gulp.task('minifycss', function () {
     gulp.src('./src/css/*.css')
-        // .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init())
         .pipe(autoprefixer({
             browsers: 'last 2 versions'
         }))
         .pipe(minifycss())
-        // .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/css/'))
 })
 
