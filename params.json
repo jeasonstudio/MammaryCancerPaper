@@ -1,0 +1,6 @@
+{
+  "name": "Mammarycancerpaper",
+  "tagline": "乳腺癌调查问卷前端",
+  "body": "# MammaryCancerPaper\r\n\r\n乳腺癌调查问卷前端\r\n\r\n\r\n## 文件树：\r\n\r\n```\r\n~/- \r\n |-dist     //生产目录\r\n    |-js\r\n    |-css\r\n    |-fonts\r\n    |-images\r\n |-html     //html 文件放这里，注意，引用 dist 而不是 src\r\n |-src      //开发目录\r\n    |-js\r\n    |-css\r\n    |-fonts\r\n    |-images\r\n |-配置文件  //（新需要的模块添加在 package,json 中）\r\n```\r\n\r\npackage.json 为 npm 配置文件\r\n\r\ngulpfiles.js 为 gulp 配置文件\r\n\r\n注意：请先安装 Nodejs 和 npm，添加 npm 的环境变量。\r\n\r\n在终端中打开根目录，`npm install`，安装 node_modules。\r\n\r\n如果太慢可以改用淘宝的镜像，自行google\r\n\r\n## 开发\r\n\r\n终端打开根目录，`npm run start` 为开发环境命令。不压缩混淆。\r\n\r\n`npm run build` 为生产环境命令，压缩且代码混淆，无法调试。\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
