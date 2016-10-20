@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="en" ng-app="myApp" class="no-js">
-<!--<![endif]-->
 
 <head>
 	<meta charset="utf-8">
@@ -9,6 +8,10 @@
 	<title>调查问卷</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="dist/js/swiper-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="dist/css/swiper-3.3.1.min.css">
+
 	<link rel="stylesheet" href="dist/css/main.css">
 </head>
 
@@ -19,8 +22,18 @@
 	<script src="http://cdn.bootcss.com/angular.js/1.3.9/angular.js"></script>
 	<script src="http://cdn.bootcss.com/angular.js/1.3.9/angular-route.js"></script>
 
-	
+
 	<script src="dist/js/app.js"></script>
+
+	<script>
+        var swiper = new Swiper('.swiper-container', {
+            spaceBetween: 50,
+            slidesPerView: 2,
+            centeredSlides: true,
+            slideToClickedSlide: true,
+            grabCursor: true
+        });
+    </script>
 
 </body>
 
