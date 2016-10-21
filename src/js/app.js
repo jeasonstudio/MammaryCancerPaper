@@ -4,32 +4,32 @@ var app = angular.module('myApp', ["ngRoute"])
         $routeProvider
             .when('/', {
                 url: "/personal",
-                templateUrl: "html/personal.html",
+                templateUrl: "../../html/personal.html",
                 controller: "personalCtrl"
             })
             .when('/', {
                 url: "/basicSituation",
-                templateUrl: "html/basicSituation.html",
+                templateUrl: "../../html/basicSituation.html",
                 controller: "basicSituationCtrl"
             })
             .when('/', {
                 url: "/medicalHistory",
-                templateUrl: "html/medicalHistory.html",
+                templateUrl: "../../html/medicalHistory.html",
                 controller: "medicalHistoryCtrl"
             })
             .when('/', {
                 url: "/habitsCustoms",
-                templateUrl: "html/habitsCustoms.html",
+                templateUrl: "../../html/habitsCustoms.html",
                 controller: "habitsCustomsCtrl"
             })
             .when('/', {
                 url: "/medication",
-                templateUrl: "html/medication.html",
+                templateUrl: "../../html/medication.html",
                 controller: "medicationCtrl"
             })
             .when('/', {
                 url: "/breast",
-                templateUrl: "html/breast.html",
+                templateUrl: "../../html/breast.html",
                 controller: "breastCtrl"
             })
             .otherwise({
@@ -37,21 +37,10 @@ var app = angular.module('myApp', ["ngRoute"])
             });
     }]);
 
-var mySwiper = new Swiper('.swiper-container', {
-    direction: 'horizontal',
-    loop: true,
-    touchMoveStopPropagation: true, //阻止冒泡
-    paginationClickable: true,
-    pagination: '.swiper-pagination',
-    flip: {
-        slideShadows: false
-    },
-});
-
 // 个人信息
 app.controller('personalCtrl', function ($scope, $http) {
     console.log("222");
-    var mySwiper = new Swiper('.swiper-container', {
+    var swiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
         loop: true,
         touchMoveStopPropagation: true, //阻止冒泡
