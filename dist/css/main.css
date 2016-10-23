@@ -94,20 +94,14 @@
     color: #000;
 }
 
-
-/*ul {
-    display: block;
-    text-align: center;
-    margin-left: 0;
-    margin-right: 0;
+.btn .active {
+    background-color: #0066CC;
+    border-color: #0066CC;
+    color: #fff;
 }
 
-.nav-pills li {
-    width: 32%;
-    padding: 0!important;
-    margin: 0;
+.btn-group {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
 }
-
-.nav-pills li a {
-    padding: 4px 0 4px 0;
-}*/

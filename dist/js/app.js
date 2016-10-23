@@ -41,7 +41,7 @@ var app = angular.module('myApp', ["ngRoute"])
 
 
 // 个人信息
-app.controller('personalCtrl', function ($scope, $http) {
+app.controller('personalCtrl', function ($scope, $http , $location) {
     console.log("personalCtrl  p1");
     $(".icon-gerenxinxi").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
@@ -50,10 +50,21 @@ app.controller('personalCtrl', function ($scope, $http) {
         touchMoveStopPropagation: true, //阻止冒泡
         paginationClickable: true,
         pagination: '.swiper-pagination',
+        iOSEdgeSwipeDetection : true,
         flip: {
             slideShadows: false
         },
     });
+
+    $scope.prevPage = function() {
+        swiper.slidePrev();
+    }
+    $scope.nextPage = function() {
+        swiper.slideNext();
+    }
+    $scope.nextMode = function() {
+        $location.path("/basicSituation");
+    }
 });
 
 // 基本情况
@@ -70,6 +81,19 @@ app.controller('basicSituationCtrl', function ($scope, $http) {
             slideShadows: false
         },
     });
+
+    $scope.prevPage = function() {
+        swiper.slidePrev();
+    }
+    $scope.nextPage = function() {
+        swiper.slideNext();
+    }
+    $scope.prevMode = function() {
+        $location.path("/personal");
+    }
+    $scope.nextMode = function() {
+        $location.path("/medicalHistory");
+    }
 });
 
 // 疾病与家族史

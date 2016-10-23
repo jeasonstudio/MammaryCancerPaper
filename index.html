@@ -34,18 +34,10 @@
 			<div class="smfonts"><span class="newFonts icon-shenghuo"></span></div>
 			<div class="smfonts"><span class="newFonts icon-yao"></span></div>
 			<div class="smfonts"><span class="newFonts icon-zhishichanquan2"></span></div>
-			<div class="menu pull-right">
-				<span class="newFonts icon-caidan">
+			<div class="menu pull-right" onclick="showMenu()">
+				<span class="newFonts icon-caidan"></span>
 			</div>
 		</div>
-		<!--<ul class="nav nav-pills" role="tablist">
-			<li role="presentation" class=" active"><a href="#">Home</a></li>
-			<li role="presentation" class=""><a href="#">Profile</a></li>
-			<li role="presentation" class=""><a href="#">Messages</a></li>
-			<li role="presentation" class=""><a href="#">Profile</a></li>
-			<li role="presentation" class=""><a href="#">Messages</a></li>
-			<li role="presentation" class=""><a href="#">Messages</a></li>
-		</ul>-->
 	</div>
 
 	<div ng-view></div>
@@ -55,6 +47,17 @@
 	<!--angular-1.3.9-->
 
 	<script src="dist/js/app.js"></script>
+
+	<script>
+		// document.querySelector('body').addEventListener('touchstart', function (ev) {
+		// 	ev.preventDefault();
+		// });
+		// 禁止微信下拉
+
+		var showMenu = function() {
+			alert("这里弹出菜单");
+		}
+	</script>
 
 </body>
 
