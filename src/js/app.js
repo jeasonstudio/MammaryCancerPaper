@@ -42,7 +42,7 @@ var app = angular.module('myApp', ["ngRoute"])
 
 // 个人信息
 app.controller('personalCtrl', function ($scope, $http) {
-    console.log("222");
+    console.log("44");
     var swiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
         loop: true,
