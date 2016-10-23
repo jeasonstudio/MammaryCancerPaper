@@ -68,7 +68,7 @@ app.controller('personalCtrl', function ($scope, $http , $location) {
 });
 
 // 基本情况
-app.controller('basicSituationCtrl', function ($scope, $http) {
+app.controller('basicSituationCtrl', function ($scope, $http , $location) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
