@@ -42,10 +42,11 @@ var app = angular.module('myApp', ["ngRoute"])
 
 // 个人信息
 app.controller('personalCtrl', function ($scope, $http) {
-    console.log("44");
+    console.log("personalCtrl  p1");
+    $(".icon-gerenxinxi").addClass("active")
+    $(".swiper-slide").height($(window).height() - 50);
     var swiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
-        loop: true,
         touchMoveStopPropagation: true, //阻止冒泡
         paginationClickable: true,
         pagination: '.swiper-pagination',
@@ -57,10 +58,11 @@ app.controller('personalCtrl', function ($scope, $http) {
 
 // 基本情况
 app.controller('basicSituationCtrl', function ($scope, $http) {
-    console.log("222");
+    console.log("basicSituationCtrl  p2");
+    $(".icon-xinyongqingkuang-copy").addClass("active")
+    $(".swiper-slide").height($(window).height() - 50);
     var swiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
-        loop: true,
         touchMoveStopPropagation: true, //阻止冒泡
         paginationClickable: true,
         pagination: '.swiper-pagination',
