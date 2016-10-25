@@ -1,5 +1,6 @@
 //启动入口
-var app = angular.module('myApp', ["ngRoute"])
+// require('angular-ui-router');
+var app = angular.module('myApp', ["ngRoute" ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/personal', {
@@ -39,59 +40,57 @@ var app = angular.module('myApp', ["ngRoute"])
             });
     }]);
 
+    // .config(function ($stateProvider, $urlRouterProvider) {
+    //     $urlRouterProvider.when("", "/personal");
+    //     $stateProvider
+    //         .state('personal', {
+    //             url: "/personal",
+    //             template:require("../../html/personal.html"),
+    //             controller: "personalCtrl"
+    //         })
+    // });
+
+// 初始化 swiper
+app.factory('mySwiper', function () {
+    var swiperObj = {
+        direction: 'horizontal',
+        touchMoveStopPropagation: true, //阻止冒泡
+        paginationClickable: true,
+        pagination: '.swiper-pagination',
+        iOSEdgeSwipeDetection: true,
+        flip: {
+            slideShadows: false
+        },
+    };
+    var swiper = new Swiper('.swiper-container', swiperObj);
+
+    return swiper;
+});
+
 
 // 个人信息
-app.controller('personalCtrl', function ($scope, $http , $location) {
+app.controller('personalCtrl', function ($scope, $http, $location, mySwiper) {
     console.log("personalCtrl  p1");
     $(".icon-gerenxinxi").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
-    var swiper = new Swiper('.swiper-container', {
-        direction: 'horizontal',
-        touchMoveStopPropagation: true, //阻止冒泡
-        paginationClickable: true,
-        pagination: '.swiper-pagination',
-        iOSEdgeSwipeDetection : true,
-        flip: {
-            slideShadows: false
-        },
-    });
+    // var swiper = new Swiper('.swiper-container', mySwiper);
+    // var swiper = mySwiper;
 
-    $scope.prevPage = function() {
-        swiper.slidePrev();
-    }
-    $scope.nextPage = function() {
-        swiper.slideNext();
-    }
-    $scope.nextMode = function() {
-        $location.path("/basicSituation");
-    }
+    // $scope.nextMode = function () {
+    //     $location.path("/basicSituation");
+    // }
 });
 
 // 基本情况
-app.controller('basicSituationCtrl', function ($scope, $http , $location) {
+app.controller('basicSituationCtrl', function ($scope, $http, $location, mySwiper) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
-    var swiper = new Swiper('.swiper-container', {
-        direction: 'horizontal',
-        touchMoveStopPropagation: true, //阻止冒泡
-        paginationClickable: true,
-        pagination: '.swiper-pagination',
-        flip: {
-            slideShadows: false
-        },
-    });
 
-    $scope.prevPage = function() {
-        swiper.slidePrev();
-    }
-    $scope.nextPage = function() {
-        swiper.slideNext();
-    }
-    $scope.prevMode = function() {
+    $scope.prevMode = function () {
         $location.path("/personal");
     }
-    $scope.nextMode = function() {
+    $scope.nextMode = function () {
         $location.path("/medicalHistory");
     }
 });
@@ -115,3 +114,61 @@ app.controller('medicationCtrl', function ($scope, $http) {
 app.controller('breastCtrl', function ($scope, $http) {
     console.log("222");
 });
+
+// 上一页下一页
+app.directive('changePage', function (mySwiper) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        template: '<div class="btn-group btn-group-md"><button type="button" ng-click="prev()" class="btn btn-default">上一页</button><button type="button" ng-click="next()" class="btn btn-default">下一页</button></div>',
+        controller: function ($scope, $location, mySwiper) {
+            $scope.prev = function () {
+                mySwiper.slidePrev();
+            }
+            $scope.next = function () {
+                mySwiper.slideNext();
+            }
+        }
+    }
+})
+
+// 上一章下一页
+app.directive('prevMode', function (mySwiper) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+            pageUrl: '&infoMode'
+        },
+        template: '<div class="btn-group btn-group-md"><button type="button" ng-click="prev()" class="btn btn-default">上一章</button><button type="button" ng-click="next()" class="btn btn-default">下一页</button></div>',
+        controller: function ($scope, $location, mySwiper) {
+            $scope.prev = function () {
+                $location.path("/" + $scope.pageUrl);
+            }
+            $scope.next = function () {
+                mySwiper.slideNext();
+            }
+        }
+    }
+})
+
+// 上一页下一章
+app.directive('nextMode', function (mySwiper) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+            pageUrl: '@infoMode'
+        },
+        template: '<div class="btn-group btn-group-md"><button type="button" ng-click="prev()" class="btn btn-default">上一页</button><button type="button" ng-click="next()" class="btn btn-default">下一章</button></div>',
+        controller: function ($scope, $location, mySwiper ) {
+            $scope.prev = function () {
+                mySwiper.slidePrev();
+            }
+            $scope.next = function () {
+                $location.path("/" + $scope.pageUrl);
+                // $state.go()
+            }
+        }
+    }
+})
