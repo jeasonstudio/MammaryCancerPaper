@@ -35,6 +35,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "../../html/breast.html",
             controller: "breastCtrl"
         })
+        .state('login', {
+            url: "/login",
+            templateUrl: "../../html/login.html",
+            controller: "loginCtrl"
+        })
 });
 
 // 初始化 swiper
