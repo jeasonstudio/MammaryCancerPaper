@@ -36,3 +36,11 @@ gulpfiles.js 为 gulp 配置文件
 终端打开根目录，`npm run start` 为开发环境命令。不压缩混淆。
 
 `npm run build` 为生产环境命令，压缩且代码混淆，无法调试。
+
+
+## 开发进度
+
+ - v0.0.1 初建项目
+ - v0.0.2 引入 angularJS Swiper underscore jQuery 等库
+ - v0.1.0 使用 gulp 成功跑起来
+ - v0.1.5 解决 rootScope 的问题。。。跳坑
