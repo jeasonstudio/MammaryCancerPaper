@@ -139,10 +139,7 @@ app.directive('prevMode', function ($state) {
         template: '<div class="btn-group btn-group-md"><button type="button" ng-click="prev()" class="btn btn-default">上一章</button><button type="button" ng-click="next()" class="btn btn-default">下一页</button></div>',
         controller: function ($scope, $rootScope, $state) {
             $scope.prev = function () {
-                $state.go($scope.pageUrl, {}, {
-                        reload: true
-                    })
-                    // $location.path("/" + $scope.pageUrl);
+                $state.go($scope.pageUrl, {})
             }
             $scope.next = function () {
                 $rootScope.swiper.slideNext();
@@ -165,10 +162,7 @@ app.directive('nextMode', function ($state) {
                 $rootScope.swiper.slidePrev();
             }
             $scope.next = function () {
-                $state.go($scope.pageUrl, {}, {
-                        reload: true
-                    })
-                    // $location.path("/" + $scope.pageUrl);
+                $state.go($scope.pageUrl, {})
             }
         }
     }
