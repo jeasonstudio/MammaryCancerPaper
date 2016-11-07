@@ -42,6 +42,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
 });
 
+var allFactory = {
+    "ipAddress": "./testJson"
+}
+
 // 初始化 swiper
 function makeSwiper() {
     var swiperObj = {
@@ -63,7 +67,10 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
     $(".icon-gerenxinxi").addClass("active")
     $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
-
+    $http.get(allFactory.ipAddress + '/m1.json')
+        .success(function (resp) {
+            console.log(resp.body)
+        });
 });
 
 // 2基本情况
