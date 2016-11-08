@@ -40,7 +40,9 @@ gulpfiles.js 为 gulp 配置文件
 
 ## 开发进度
 
- - v0.0.1 初建项目
- - v0.0.2 引入 angularJS Swiper underscore jQuery 等库
- - v0.1.0 使用 gulp 成功跑起来
- - v0.1.5 解决 rootScope 的问题。。。跳坑
+ - v 0.0.1 初建项目
+ - v 0.0.2 引入 angularJS Swiper underscore jQuery 等库
+ - v 0.1.0 使用 gulp 成功跑起来
+ - v 0.1.5 解决 rootScope 的问题。。。跳坑
+ - v 0.1.6 正式立项 SRTP
+ - v 0.2.0 启动机器学习 or 数据挖掘方向侧重
