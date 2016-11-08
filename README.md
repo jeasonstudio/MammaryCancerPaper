@@ -6,19 +6,24 @@
 ## 文件树：
 
 ```
-~/- 
- |-dist     //生产目录
-    |-js
-    |-css
-    |-fonts
-    |-images
- |-html     //html 文件放这里，注意，引用 dist 而不是 src
- |-src      //开发目录
-    |-js
-    |-css
-    |-fonts
-    |-images
- |-配置文件  //（新需要的模块添加在 package,json 中）
+|-- /
+    |-- dist     // 生产目录
+        |-- js
+        |-- css
+        |-- fonts
+        |-- images
+    |-- html     // html 文件放这里，注意，引用 dist 而不是 src
+    |-- src      // 开发目录
+        |-- js
+        |-- css
+        |-- fonts
+        |-- images
+    |-- doc    // 项目前期申请文案 & api 接口约定文档
+        |-- apis 
+        |-- files
+    |-- 配置文件    //（新需要的模块添加在 package,json 中）
+    |-- index.html    //页面入口
+    
 ```
 
 package.json 为 npm 配置文件
