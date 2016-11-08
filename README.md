@@ -5,7 +5,7 @@
 
 ## 文件树：
 
-```
+```java
 |-- /
     |-- dist     // 生产目录
         |-- js
@@ -23,7 +23,7 @@
         |-- files
     |-- 配置文件    //（新需要的模块添加在 package,json 中）
     |-- index.html    //页面入口
-    
+
 ```
 
 package.json 为 npm 配置文件
