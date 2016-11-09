@@ -1,5 +1,4 @@
 //启动入口
-// require('angular-ui-router');
 var app = angular.module('myApp', ["ngRoute", "ui.router"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
