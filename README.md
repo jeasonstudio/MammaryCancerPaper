@@ -53,3 +53,7 @@ gulpfiles.js 为 gulp 配置文件
  - v 0.1.5 解决 rootScope 的问题。。。跳坑
  - v 0.1.6 正式立项 SRTP
  - v 0.2.0 启动机器学习 or 数据挖掘方向侧重
+
+## TODO
+
+ - 项目后期采用 VueJS 2.x , webpack , iView&MintUI 进行重构
