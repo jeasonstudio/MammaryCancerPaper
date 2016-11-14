@@ -110,3 +110,19 @@
 #container {
     overflow-y: hidden;
 }
+
+
+
+.weui-cells > label {
+    font-weight: normal;
+    margin: 0;
+}
+
+.weui-cell {
+    padding: 0 20px;
+}
+
+h5 {
+    font-size: 17px;
+    font-weight: normal;
+}
