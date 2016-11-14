@@ -45,10 +45,24 @@
     content: "\e606";
 }
 
+.container {
+    padding: 0;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    width: auto;
+    text-align: right;
+    right: 0;
+}
 
 .swiper-slide {
     width: 100%;
     background-color: #fff;
+}
+
+.swiper-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .swiper-pagination {
@@ -111,7 +125,17 @@
     overflow-y: hidden;
 }
 
+.slide-inner {
+    margin-bottom: 150px;
+}
 
+.weui-cells__title {
+    font-family: 微软雅黑;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #000;
+}
 
 .weui-cells > label {
     font-weight: normal;
@@ -119,12 +143,20 @@
 }
 
 .weui-cell {
+    position: static;
     padding: 0 20px;
+    border: 0;
+}
+
+.weui-cells:after , .weui-cell:before {
+    border: 0;
 }
 
 h5 {
     font-size: 17px;
     font-weight: normal;
+    color: #555;
+    margin: 8px 0;
 }
 
 label {
@@ -134,4 +166,8 @@ label {
 .weui-label {
     width: 70px;
     padding: 5px 0;
+}
+
+.weui-input {
+    border-bottom: 1px solid #D9D9D9;
 }
