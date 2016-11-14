@@ -69,6 +69,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
     $http.get(allFactory.ipAddress + '/m1.json')
         .success(function (resp) {
             console.log(resp.body)
+            $scope.allQuestions = resp.body.questions;
         });
 });
 
