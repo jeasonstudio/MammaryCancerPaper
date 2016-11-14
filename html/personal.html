@@ -1,86 +1,32 @@
 <div class="swiper-container swiper-container-personal">
 	<div class="swiper-pagination"></div>
 	<div class="swiper-wrapper">
-		<div class="swiper-slide">
+		<div class="swiper-slide" data-hash="slide1">
 			<div class="slide-inner">
-				<div>
-					<div class="weui-cells__title">啊实打实大声道</div>
+				<div ng-repeat="item in testDou">
+					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="s11">
+						<label class="weui-cell weui-check__label" for="checkbox + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
 						<div class="weui-cell__hd">
-							<input type="checkbox" class="weui-check" name="checkbox1" id="s11">
+							<input type="checkbox" class="weui-check" name="checkbox + {{$parent.$index}} + {{$index}}" id="checkbox + {{$parent.$index}} + {{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5>standard is dealt for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="s12">
-						<div class="weui-cell__hd">
-							<input type="checkbox" name="checkbox1" class="weui-check" id="s12">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.standard is dealicient for u.standard is dealicient for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="s13">
-						<div class="weui-cell__hd">
-							<input type="checkbox" name="checkbox1" class="weui-check" id="s13">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="s14">
-						<div class="weui-cell__hd">
-							<input type="checkbox" name="checkbox1" class="weui-check" id="s14">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.</h5>
+							<h5 ng-bind="itemOption.anwserContent"></h5>
 						</div>
 					</label>
 					</div>
 				</div>
-				<div>
-					<div class="weui-cells__title">单选题</div>
+				<div ng-repeat="item in testSin">
+					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="single1">
+						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
 						<div class="weui-cell__hd">
-							<input type="radio" class="weui-check" name="checkbox1" id="single1">
+							<input type="radio" class="weui-check" name="radio + {{$parent.$index}}" id="radio + {{$parent.$index}} + {{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5>standard is dealt for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="single2">
-						<div class="weui-cell__hd">
-							<input type="radio" name="checkbox1" class="weui-check" id="single2">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.standard is dealicient for u.standard is dealicient for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="single3">
-						<div class="weui-cell__hd">
-							<input type="radio" name="checkbox1" class="weui-check" id="single3">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.</h5>
-						</div>
-					</label>
-						<label class="weui-cell weui-check__label" for="single4">
-						<div class="weui-cell__hd">
-							<input type="radio" name="checkbox1" class="weui-check" id="single4">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5>standard is dealicient for u.</h5>
+							<h5 ng-bind="itemOption.anwserContent"></h5>
 						</div>
 					</label>
 					</div>
@@ -131,7 +77,7 @@
 
 
 
-		<div class="swiper-slide">Slide 2
+		<div class="swiper-slide" data-hash="slide2">Slide 2
 			<change-page></change-page>
 		</div>
 		<div class="swiper-slide">Slide 3
