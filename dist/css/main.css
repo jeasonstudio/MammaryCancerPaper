@@ -126,3 +126,12 @@ h5 {
     font-size: 17px;
     font-weight: normal;
 }
+
+label {
+    font-weight: normal;
+}
+
+.weui-label {
+    width: 70px;
+    padding: 5px 0;
+}
