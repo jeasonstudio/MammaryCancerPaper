@@ -49,12 +49,6 @@
     padding: 0;
 }
 
-.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-    width: auto;
-    text-align: right;
-    right: 0;
-}
-
 .swiper-slide {
     width: 100%;
     background-color: #fff;
@@ -66,6 +60,8 @@
 }
 
 .swiper-pagination {
+    position: fixed;
+    bottom: 50px!important;
     text-align: right;
     padding-right: 15px;
 }
@@ -126,7 +122,7 @@
 }
 
 .slide-inner {
-    margin-bottom: 150px;
+    padding-bottom: 100px;
 }
 
 .weui-cells__title {
