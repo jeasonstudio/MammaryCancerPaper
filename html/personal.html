@@ -1,96 +1,371 @@
 <div class="swiper-container swiper-container-personal">
-	<div class="swiper-pagination"></div>
-	<div class="swiper-wrapper">
-		<div class="swiper-slide" data-hash="slide1">
-			<div class="slide-inner">
-				<div ng-repeat="item in testDou">
-					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
-					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="checkbox + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
-						<div class="weui-cell__hd">
-							<input type="checkbox" class="weui-check" name="checkbox + {{$parent.$index}} + {{$index}}" id="checkbox + {{$parent.$index}} + {{$index}}">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
-						</div>
-					</label>
-					</div>
-				</div>
-				<div ng-repeat="item in testSin">
-					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
-					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
-						<div class="weui-cell__hd">
-							<input type="radio" class="weui-check" name="radio + {{$parent.$index}}" id="radio + {{$parent.$index}} + {{$index}}">
-							<i class="weui-icon-checked"></i>
-						</div>
-						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
-						</div>
-					</label>
-					</div>
-				</div>
-				<div>
-					<div class="weui-cells weui-cells_form">
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="请输入姓名">
-							</div>
-						</div>
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">qq</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入qq号">
-							</div>
-						</div>
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="date" value="">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="weui-cells weui-cells_form">
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="请输入姓名">
-							</div>
-						</div>
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">qq</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入qq号">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--<change-page></change-page>-->
-		</div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">个人信息 1
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">姓名：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="请填写实际姓名"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">密码：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="password" placeholder="请输入密码"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">联系电话：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请填写联系电话"/>
+                    </div>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">个人信息 2
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">问卷编码：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" placeholder="" readonly/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">身份证号：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*"/>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label for="" class="weui-label">出生日期：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="date" value="" placeholder="（阴/阳历）"/>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">年龄：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="（周岁）"/>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">性别：</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select2">
+                            <option></option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
 
 
+        <div class="swiper-slide">个人信息 3——住址信息
+            <!--测试-->
+            <button class="weui-btn weui-btn_primary" onclick="initProvinces()">initProvinces</button>
 
 
+            <div class="weui-cells__title">家庭住址：</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">省份：</label>
+                    </div>
+                    <form name="Province">
+                        <div class="weui-cell__bd">
+                            <select class="weui-select" id="provinces" onchange="initCities()">
 
-		<div class="swiper-slide" data-hash="slide2">Slide 2
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 3
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 4
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 5
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 6
-			<next-mode info-mode="basicSituation"></next-mode>
-		</div>
-	</div>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">市：</label>
+                    </div>
+                    <form name="City">
+                        <div class="weui-cell__bd">
+                            <select class="weui-select" id="cities">
+
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">县（区）：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">镇：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">村（居委会）：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__bd">
+                <div class="weui-cells__title">居住地区：</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x11">
+                        <div class="weui-cell__bd">
+                            <p>城市</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x11">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x12">
+
+                        <div class="weui-cell__bd">
+                            <p>农村</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x12">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">个人信息 4
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">微信号码：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="选填"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">电子邮箱：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="email" placeholder="选填"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">关系1：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="选填"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">联系电话1：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="选填"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">关系2：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="选填"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">联系电话2：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="选填"/>
+                    </div>
+                </div>
+            </div>
+
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">个人信息 5
+            <div class="page__bd">
+                <div class="weui-cells__title">用户类别：</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x21">
+                        <div class="weui-cell__bd">
+                            <p>病例组（乳腺癌患者）</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x21">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x22">
+
+                        <div class="weui-cell__bd">
+                            <p>对照组（非乳腺癌患者）</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x22">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label for="" class="weui-label">填写日期：</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="date" value="" placeholder=""/>
+                </div>
+            </div>
+
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">Slide 6——无用
+            <div class="weui-cells__title">表单</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">qq</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入qq号"/>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">手机号</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="tel" placeholder="请输入手机号">
+                    </div>
+                    <div class="weui-cell__ft">
+                        <a href="javascript:;" class="weui-vcode-btn">获取验证码</a>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="date" value=""/>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label for="" class="weui-label">时间</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="datetime-local" value="" placeholder=""/>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" placeholder="请输入验证码"/>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <img class="weui-vcode-img" src="./images/vcode.jpg"/>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells__tips">底部说明文字底部说明文字</div>
+
+            <div class="weui-cells__title">表单报错</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_warn">
+                    <div class="weui-cell__hd"><label for="" class="weui-label">卡号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" value="weui input error"
+                               placeholder="请输入卡号"/>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <i class="weui-icon-warn"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="weui-cells__title">开关</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_switch">
+                    <div class="weui-cell__bd">标题文字</div>
+                    <div class="weui-cell__ft">
+                        <input class="weui-switch" type="checkbox"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-cells__title">文本框</div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="请输入文本"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-cells__title">文本域</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                        <div class="weui-textarea-counter"><span>0</span>/200</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">Slide 7——无用
+            <div class="weui-cells__title">选择</div>
+            <div class="weui-cells">
+
+                <div class="weui-cell weui-cell_select weui-cell_select-before">
+                    <div class="weui-cell__hd">
+                        <select class="weui-select" name="select2">
+                            <option value="1">+86</option>
+                            <option value="2">+80</option>
+                            <option value="3">+84</option>
+                            <option value="4">+87</option>
+                        </select>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入号码"/>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells__title">选择</div>
+            <div class="weui-cells">
+                <div class="weui-cell weui-cell_select">
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select1">
+                            <option selected="" value="1">微信号</option>
+                            <option value="2">QQ号</option>
+                            <option value="3">Email</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">国家/地区</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select2">
+                            <option value="1">中国</option>
+                            <option value="2">美国</option>
+                            <option value="3">英国</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <next-mode info-mode="basicSituation"></next-mode>
+        </div>
+    </div>
 </div>

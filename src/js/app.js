@@ -1,4 +1,4 @@
-//启动入口
+﻿//启动入口
 var app = angular.module('myApp', ["ngRoute", "ui.router"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {

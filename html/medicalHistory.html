@@ -1,23 +1,406 @@
 <div class="swiper-container">
-	<div class="swiper-pagination"></div>
-	<div class="swiper-wrapper">
-		<div class="swiper-slide">Slide 1
-			<prev-mode info-mode="basicSituation"></prev-mode>
-		</div>
-		<div class="swiper-slide">Slide 2
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 3
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 4
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 5
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 6
-			<next-mode info-mode="habitsCustoms"></next-mode>
-		</div>
-	</div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">疾病与家族史 1
+            <div class="page__bd">
+                <div class="weui-cells__title"><b>是否常用染发剂</b></div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x11">
+                        <div class="weui-cell__bd">
+                            <p>无</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x11">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x12">
+
+                        <div class="weui-cell__bd">
+                            <p>有</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x12">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <br>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="weui-cell__hd">
+                            <label for="" class="weui-label">使用时间：</label>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text"
+                                   onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                                   size="3" maxlength="3"/>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="weui-cell__hd">
+                            <label for="" class="weui-label-small">年</label>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text"
+                                   onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                                   size="3" maxlength="3"/>
+                        </div>
+                    </td>
+                    <td colspan="1">
+                        <div class="weui-cell__hd">
+                            <label for="" class="weui-label-small">月</label>
+                        </div>
+                    </td>
+                    <td>
+                        <pre hidden="hidden">&#9;&#9;</pre>
+                    </td>
+
+                </tr>
+            </table>
+            <prev-mode info-mode="basicSituation"></prev-mode>
+        </div>
+        <div class="swiper-slide">疾病与家族史 2
+            <div class="page__bd">
+                <div class="weui-cells__title"><b>有无服用降脂药</b></div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x21">
+                        <div class="weui-cell__bd">
+                            <p>无</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x21">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x22">
+
+                        <div class="weui-cell__bd">
+                            <p>有</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x22">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">疾病与家族史 3
+            <div class="weui-cells__title">若有，服用类别：</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label-large">(1)他汀类， 服用时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">年</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">月</label>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label-large">(2)烟酸类， 服用时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">年</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">月</label>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label-large">(3)贝特类， 服用时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">年</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">月</label>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label-large">(4)胆酸螯合树脂类， 服用时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">年</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">月</label>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label-large">(5)其他， 服用时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">年</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"
+                               onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                               size="3" maxlength="3"/>
+                    </div>
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label-small">月</label>
+                    </div>
+                </div>
+            </div>
+
+            <!--table实现-->
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<b>(1)他汀类， 服用时间</b>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;</pre>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">年</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">月</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;&#9;</pre>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<b>(2)烟酸类， 服用时间</b>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;</pre>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">年</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">月</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;&#9;</pre>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<b>(3)贝特类， 服用时间</b>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;</pre>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">年</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">月</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;&#9;</pre>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<b>(4)胆酸螯合树脂类， 服用时间</b>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;</pre>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">年</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">月</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;&#9;</pre>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<b>(5)其他， 服用时间</b>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;</pre>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">年</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__bd">-->
+                            <!--<input class="weui-input" type="text"-->
+                                   <!--onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"-->
+                                   <!--size="3" maxlength="3"/>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td colspan="1">-->
+                        <!--<div class="weui-cell__hd">-->
+                            <!--<label for="" class="weui-label-small">月</label>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<pre hidden="hidden">&#9;&#9;</pre>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+            <!--</table>-->
+            <change-page></change-page>
+        </div>
+
+        <div class="swiper-slide">Slide 6
+            <next-mode info-mode="habitsCustoms"></next-mode>
+        </div>
+    </div>
 </div>
