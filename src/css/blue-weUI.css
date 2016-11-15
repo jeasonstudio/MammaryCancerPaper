@@ -526,6 +526,24 @@ input.weui-btn_plain-default {
   word-wrap: break-word;
   word-break: break-all;
 }
+.weui-label-small {
+  display: block;
+  width: 40px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.weui-label-big {
+  display: block;
+  width: 210px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.weui-label-large {
+  display: block;
+  width: 240px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
 .weui-input {
   width: 100%;
   border: 0;
