@@ -1,4 +1,4 @@
-//启动入口
+﻿//启动入口
 var app = angular.module('myApp', ["ngRoute", "ui.router"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -68,8 +68,117 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
     $(".swiper-slide").height($(window).height() - 50);
     $http.get(allFactory.ipAddress + '/m1.json')
         .success(function (resp) {
-            console.log(resp.body)
+            $scope.allQuestions = resp.body.questions;
+            console.log($scope.allQuestions)
+            $scope.filterBySecNum($scope.allQuestions[0]);
         });
+    $scope.testDou = [{
+                    "questionAnswerType": 1,
+                    "questionId": "0.10",
+                    "questionContent": "居住地区：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "城市",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "农村",
+                            "anwserId": "2"
+                        }
+                    ]
+                },{
+                    "questionAnswerType": 1,
+                    "questionId": "0.15",
+                    "questionContent": "用户类别：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "病例组",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "对照组",
+                            "anwserId": "2"
+                        }
+                    ]
+                },{
+                    "questionAnswerType": 1,
+                    "questionId": "0.16",
+                    "questionContent": "填写方式：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "线上",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "线下",
+                            "anwserId": "2"
+                        }
+                    ]
+                }]
+
+    $scope.testSin = [{
+                    "questionAnswerType": 1,
+                    "questionId": "0.10",
+                    "questionContent": "居住地区：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "城市",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "农村",
+                            "anwserId": "2"
+                        }
+                    ]
+                },{
+                    "questionAnswerType": 1,
+                    "questionId": "0.15",
+                    "questionContent": "用户类别：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "病例组",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "对照组",
+                            "anwserId": "2"
+                        }
+                    ]
+                },{
+                    "questionAnswerType": 1,
+                    "questionId": "0.16",
+                    "questionContent": "填写方式：",
+                    "questionType": 1,
+                    "options": [
+                        {
+                            "anwserContent": "线上",
+                            "anwserId": "1"
+                        },
+                        {
+                            "anwserContent": "线下",
+                            "anwserId": "2"
+                        }
+                    ]
+                }]
+
+    // 根据第二个小标题区分题目
+    $scope.filterBySecNum = function (afterFirstArr) {
+        _.each(afterFirstArr, function (b, k) {
+            if (b.length > 1) {
+                console.log(b)
+            }
+            $scope.getSingleChoose(b);
+        })
+    }
+
+    $scope.getSingleChoose = function(afterSecArr) {
+
+    }
 });
 
 // 2基本情况
