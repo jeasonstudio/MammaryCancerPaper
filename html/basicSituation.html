@@ -1,23 +1,272 @@
 <div class="swiper-container swiper-container-basicSituation">
-	<div class="swiper-pagination"></div>
-	<div class="swiper-wrapper">
-		<div class="swiper-slide">Slide4 1
-			<prev-mode info-mode="personal"></prev-mode>
-		</div>
-		<div class="swiper-slide">Slides 2
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slides 3
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slides 4
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slides 5
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slides 6
-			<next-mode info-mode="medicalHistory"></next-mode>
-		</div>
-	</div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">基本信息 1
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">住院病案号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="如果没住院，可以不填"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__bd">
+                <div class="weui-cells__title"><b>您的户口所在地</b></div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x11">
+                        <div class="weui-cell__bd">
+                            <p>城市</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x11">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x12">
+
+                        <div class="weui-cell__bd">
+                            <p>农村</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x12">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="weui-cells__title"><b>民族</b></div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">您的民族</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" id="nations" >
+                        <!--<option value="1">汉族</option>-->
+                        <!--<option value="2">回族</option>-->
+                        <!--<option value="3">满族</option>-->
+                        <!--<option value="4">苗族</option>-->
+                        <!--<option value="5">维吾尔族</option>-->
+                        <!--<option value="6">朝鲜族</option>-->
+                        <!--<option value="7">……</option>-->
+                    </select>
+                </div>
+            </div>
+            <button class="weui-btn weui-btn_primary" onclick="initNations()">initNations</button>
+            <prev-mode info-mode="personal"></prev-mode>
+        </div>
+        <div class="swiper-slide">基本信息 2——职业
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">您的职业</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">农民</option>
+                        <option value="2">工人</option>
+                        <option value="3">教师</option>
+                        <option value="4">公务员</option>
+                        <option value="5">个体经商者</option>
+                        <option value="6">司机</option>
+                        <option value="7">服务业</option>
+                        <option value="8">公司职员</option>
+                        <option value="9">家庭主妇</option>
+                        <option value="10">医护人员</option>
+                        <option value="11">学生</option>
+                        <option value="12">其他</option>
+                    </select>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">基本信息 3——婚育状况
+            <div class="page__bd">
+                <div class="weui-cells__title">婚育状况</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x21">
+                        <div class="weui-cell__bd">
+                            <p>单身，从未结婚</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x21">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x22">
+
+                        <div class="weui-cell__bd">
+                            <p>已婚并生活在一起</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x22">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x23">
+
+                        <div class="weui-cell__bd">
+                            <p>已婚但分局三个月以上</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x23">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x24">
+
+                        <div class="weui-cell__bd">
+                            <p>离婚</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x24">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x25">
+
+                        <div class="weui-cell__bd">
+                            <p>寡居</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x25">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x26">
+
+                        <div class="weui-cell__bd">
+                            <p>再婚</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x26">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x27">
+
+                        <div class="weui-cell__bd">
+                            <p>未婚同居</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x27">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x28">
+
+                        <div class="weui-cell__bd">
+                            <p>其他</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x28">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <span id="else"></span>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">基本信息 4
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">共生育</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="次"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">怀孕</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="次"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">流产</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="次"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">首次流产年龄为</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="岁（周岁）"/>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">基本信息 5
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">孩子个数？</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="个"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">男孩</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="个"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">女孩</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="个"/>
+                </div>
+            </div>
+            <div class="page__bd">
+                <div class="weui-cells__title">孩子是否母乳喂养？</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x31">
+                        <div class="weui-cell__bd">
+                            <p>是</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x31">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x32">
+
+                        <div class="weui-cell__bd">
+                            <p>否</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x32">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">累计母乳喂养时间？</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入时间（月）">
+                </div>
+            </div>
+
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">Slides 6
+            <next-mode info-mode="medicalHistory"></next-mode>
+        </div>
+    </div>
 </div>

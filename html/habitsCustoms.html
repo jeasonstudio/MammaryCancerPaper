@@ -1,23 +1,271 @@
 <div class="swiper-container">
-	<div class="swiper-pagination"></div>
-	<div class="swiper-wrapper">
-		<div class="swiper-slide">Slide 1
-			<prev-mode info-mode="medicalHistory"></prev-mode>
-		</div>
-		<div class="swiper-slide">Slide 2
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 3
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 4
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 5
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 6
-			<next-mode info-mode="medication"></next-mode>
-		</div>
-	</div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">生活习惯 1
+            <div class="page__bd">
+                <div class="weui-cells__title">您吸烟吗</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x11">
+                        <div class="weui-cell__bd">
+                            <p>从来不吸</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x11">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x12">
+
+                        <div class="weui-cell__bd">
+                            <p>偶尔</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x12">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x13">
+
+                        <div class="weui-cell__bd">
+                            <p>经常</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x13">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">您第一次吸烟的年龄为</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="岁（周岁）"/>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">从开始吸烟到现在共吸烟</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="年(若期间戒烟，请扣除)"/>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">在吸烟期间，每天平均吸烟</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="支"/>
+                </div>
+            </div>
+
+            <div class=" page__bd">
+                <div class="weui-cells__title">与您共同生活或工作的家人或同事是否经常吸烟</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x21">
+                        <div class="weui-cell__bd">
+                            <p>是</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x21">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x22">
+
+                        <div class="weui-cell__bd">
+                            <p>否</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x22">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <prev-mode info-mode="medicalHistory"></prev-mode>
+        </div>
+
+        <div class="swiper-slide">生活习惯 2
+            <div class="weui-cells__title">饮食（最近一年）</div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">豆制品（豆腐、豆浆等）</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">新鲜豆类（毛豆、蚕豆等）</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">红肉类（猪肉、羊肉、牛肉）</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">奶制品</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">玉米类</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label-big">胡萝卜</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option>--请选择--</option>
+                        <option value="1">几乎每天都吃（5-7天）</option>
+                        <option value="2">每周3-4天</option>
+                        <option value="3">每周1-2天</option>
+                        <option value="4">几乎从来都不吃</option>
+                    </select>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+        <div class="swiper-slide">生活习惯 3
+            <div class="page__bd">
+                <div class="weui-cells__title">您经常饮茶吗？</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x31">
+                        <div class="weui-cell__bd">
+                            <p>是</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x31">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x32">
+
+                        <div class="weui-cell__bd">
+                            <p>否</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x32">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="page__bd">
+                <div class="weui-cells__title">饮茶种类为</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x41">
+                        <div class="weui-cell__bd">
+                            <p>绿茶</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x41">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x42">
+
+                        <div class="weui-cell__bd">
+                            <p>红茶</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x42">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x43">
+
+                        <div class="weui-cell__bd">
+                            <p>其他</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x43">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="page__bd">
+                <div class="weui-cells__title">您经常饮咖啡吗？</div>
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x51">
+                        <div class="weui-cell__bd">
+                            <p>是</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x51">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x52">
+
+                        <div class="weui-cell__bd">
+                            <p>否</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x52">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <change-page></change-page>
+        </div>
+
+        <div class="swiper-slide">Slide 6
+            <next-mode info-mode="medication"></next-mode>
+        </div>
+    </div>
 </div>
