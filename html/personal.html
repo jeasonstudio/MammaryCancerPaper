@@ -4,7 +4,7 @@
 		<div class="swiper-slide" data-hash="slide1">
 			<div class="slide-inner">
 				<div ng-repeat="item in testDou">
-					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
+					<div class="weui-cells__title"><span ng-bind="item.questionContent"></span><span class="chooseInfo">(多选)</span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" for="checkbox + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
 						<div class="weui-cell__hd">
@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div ng-repeat="item in testSin">
-					<div class="weui-cells__title" ng-bind="item.questionContent"></div>
+					<div class="weui-cells__title"><span ng-bind="item.questionContent"></span><span class="chooseInfo">(单选)</span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
 						<div class="weui-cell__hd">

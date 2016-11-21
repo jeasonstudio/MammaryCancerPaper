@@ -62,109 +62,99 @@ function makeSwiper() {
 
 // 1个人信息
 app.controller('personalCtrl', function ($scope, $rootScope, $http) {
+
+
+    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=' + '1' + '&paperModule=' + '2')
+        .success(function (resp) {
+            console.log(resp)
+        });
+
+
     console.log("personalCtrl  p1");
     $(".icon-gerenxinxi").addClass("active")
     $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
-    $http.get(allFactory.ipAddress + '/m1.json')
-        .success(function (resp) {
-            $scope.allQuestions = resp.body.questions;
-            console.log($scope.allQuestions)
-            $scope.filterBySecNum($scope.allQuestions[0]);
-        });
+    // $http.get(allFactory.ipAddress + '/m1.json')
+    //     .success(function (resp) {
+    //         $scope.allQuestions = resp.body.questions;
+    //         console.log($scope.allQuestions)
+    //         $scope.filterBySecNum($scope.allQuestions[0]);
+    //     });
     $scope.testDou = [{
-                    "questionAnswerType": 1,
-                    "questionId": "0.10",
-                    "questionContent": "居住地区：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "城市",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "农村",
-                            "anwserId": "2"
-                        }
-                    ]
-                },{
-                    "questionAnswerType": 1,
-                    "questionId": "0.15",
-                    "questionContent": "用户类别：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "病例组",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "对照组",
-                            "anwserId": "2"
-                        }
-                    ]
-                },{
-                    "questionAnswerType": 1,
-                    "questionId": "0.16",
-                    "questionContent": "填写方式：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "线上",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "线下",
-                            "anwserId": "2"
-                        }
-                    ]
-                }]
+        "questionAnswerType": 1,
+        "questionId": "0.10",
+        "questionContent": "居住地区：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "城市",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "农村",
+            "anwserId": "2"
+        }]
+    }, {
+        "questionAnswerType": 1,
+        "questionId": "0.15",
+        "questionContent": "用户类别：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "病例组",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "对照组",
+            "anwserId": "2"
+        }]
+    }, {
+        "questionAnswerType": 1,
+        "questionId": "0.16",
+        "questionContent": "填写方式：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "线上",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "线下",
+            "anwserId": "2"
+        }]
+    }]
 
     $scope.testSin = [{
-                    "questionAnswerType": 1,
-                    "questionId": "0.10",
-                    "questionContent": "居住地区：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "城市",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "农村",
-                            "anwserId": "2"
-                        }
-                    ]
-                },{
-                    "questionAnswerType": 1,
-                    "questionId": "0.15",
-                    "questionContent": "用户类别：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "病例组",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "对照组",
-                            "anwserId": "2"
-                        }
-                    ]
-                },{
-                    "questionAnswerType": 1,
-                    "questionId": "0.16",
-                    "questionContent": "填写方式：",
-                    "questionType": 1,
-                    "options": [
-                        {
-                            "anwserContent": "线上",
-                            "anwserId": "1"
-                        },
-                        {
-                            "anwserContent": "线下",
-                            "anwserId": "2"
-                        }
-                    ]
-                }]
+        "questionAnswerType": 1,
+        "questionId": "0.10",
+        "questionContent": "居住地区：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "城市",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "农村",
+            "anwserId": "2"
+        }]
+    }, {
+        "questionAnswerType": 1,
+        "questionId": "0.15",
+        "questionContent": "用户类别：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "病例组",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "对照组",
+            "anwserId": "2"
+        }]
+    }, {
+        "questionAnswerType": 1,
+        "questionId": "0.16",
+        "questionContent": "填写方式：",
+        "questionType": 1,
+        "options": [{
+            "anwserContent": "线上",
+            "anwserId": "1"
+        }, {
+            "anwserContent": "线下",
+            "anwserId": "2"
+        }]
+    }]
 
     // 根据第二个小标题区分题目
     $scope.filterBySecNum = function (afterFirstArr) {
@@ -176,7 +166,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
         })
     }
 
-    $scope.getSingleChoose = function(afterSecArr) {
+    $scope.getSingleChoose = function (afterSecArr) {
 
     }
 });

@@ -132,6 +132,11 @@
     color: #000;
 }
 
+.chooseInfo {
+    font-size: 15px;
+    color: #bbb;
+}
+
 .weui-cells > label {
     font-weight: normal;
     margin: 0;
