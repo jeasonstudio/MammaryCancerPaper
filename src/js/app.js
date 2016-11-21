@@ -60,26 +60,66 @@ function makeSwiper() {
     return new Swiper('.swiper-container', swiperObj);
 }
 
+// 计算权重的函数
+var sumWeight = function (tagArr) {
+    var tagArrResult = [];
+    for (var secQue in tagArr) {
+        if (tagArr[secQue].options && (tagArr[secQue].questionAnswerType == '0' || tagArr[secQue].questionAnswerType == '1' || tagArr[secQue].questionAnswerType == '2' || tagArr[secQue].questionAnswerType == '4' || tagArr[secQue].questionAnswerType == '5' || tagArr[secQue].questionAnswerType == '7')) {
+            tagArrResult[secQue] = tagArr[secQue].options.length + 1;
+        } else if (tagArr[secQue].questionAnswerType == '3' || tagArr[secQue].questionAnswerType == '6') {
+            tagArrResult[secQue] = 2;
+        } else {
+            tagArrResult[secQue] = 2;
+        }
+    }
+    console.log(tagArrResult)
+    return splitWeight(tagArrResult, tagArr);
+}
+
+// 计算切割位置并切割
+var splitWeight = function (tagArr, origionArr) {
+    var i = 0,
+        sum = 0,
+        tagArrResult = [];
+    for (var item in tagArr) {
+        if (tagArr[item] + sum <= 13) {
+            sum += tagArr[item];
+        } else {
+            sum = 0;
+            tagArrResult[i] = item;
+            i += 1;
+        }
+    }
+    console.log(tagArrResult)
+
+    var finalSplitedArr = [];
+    for (var itemTwo in tagArrResult) {
+        if (itemTwo == 0) {
+            finalSplitedArr[itemTwo] = origionArr.slice(0, tagArrResult[itemTwo]);
+        } else {
+            finalSplitedArr[itemTwo] = origionArr.slice(tagArrResult[itemTwo - 1], tagArrResult[itemTwo]);
+        }
+        finalSplitedArr[tagArrResult.length] = origionArr.slice(tagArrResult[tagArrResult.length - 1], tagArrResult[tagArrResult.length]);
+    }
+    return finalSplitedArr
+}
+
 // 1个人信息
 app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
-
-    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=' + '1' + '&paperModule=' + '2')
+    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=aaa' + '&paperModule=2')
         .success(function (resp) {
-            console.log(resp)
+            // console.log(resp)
+            if (resp.msg == 'success') {
+                var modOne = _.flatten(resp.body.questions);
+                console.log(sumWeight(modOne))
+            }
         });
-
 
     console.log("personalCtrl  p1");
     $(".icon-gerenxinxi").addClass("active")
     $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
-    // $http.get(allFactory.ipAddress + '/m1.json')
-    //     .success(function (resp) {
-    //         $scope.allQuestions = resp.body.questions;
-    //         console.log($scope.allQuestions)
-    //         $scope.filterBySecNum($scope.allQuestions[0]);
-    //     });
     $scope.testDou = [{
         "questionAnswerType": 1,
         "questionId": "0.10",
