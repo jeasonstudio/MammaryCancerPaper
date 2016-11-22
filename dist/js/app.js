@@ -55,7 +55,7 @@ function makeSwiper() {
         iOSEdgeSwipeDetection: true,
         flip: {
             slideShadows: false
-        },
+        }
     };
     return new Swiper('.swiper-container', swiperObj);
 }
@@ -104,22 +104,27 @@ var splitWeight = function (tagArr, origionArr) {
     return finalSplitedArr
 }
 
+// 计算页数并显示TODO
+var takePagesNum = function (tagArr) {
+    var $pagin = $(".swiper-pagination")
+    for (var i in tagArr) {
+        $pagin.append('<span class="swiper-pagination-bullet"></span>')
+    }
+}
+
 // 1个人信息
 app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
-    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=aaa' + '&paperModule=2')
-        .success(function (resp) {
-            // console.log(resp)
-            if (resp.msg == 'success') {
-                var modOne = _.flatten(resp.body.questions);
-                console.log(sumWeight(modOne))
-            }
-        });
-
+    // 进入页面一些初始化配置
     console.log("personalCtrl  p1");
     $(".icon-gerenxinxi").addClass("active")
     $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
+
+    $scope.setModOneQue = function (tagArr) {
+        console.log(tagArr);
+        // takePagesNum(tagArr)
+    }
     $scope.testDou = [{
         "questionAnswerType": 1,
         "questionId": "0.10",
@@ -209,6 +214,15 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
     $scope.getSingleChoose = function (afterSecArr) {
 
     }
+
+    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=aaa' + '&paperModule=1')
+        .success(function (resp) {
+            if (resp.msg == 'success') {
+                $scope.modOne = sumWeight(_.flatten(resp.body.questions));
+                // console.log(sumWeight($scope.modOne))
+                $scope.setModOneQue($scope.modOne);
+            }
+        });
 });
 
 // 2基本情况
