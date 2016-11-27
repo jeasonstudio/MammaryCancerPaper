@@ -215,8 +215,13 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
     }
 
-    $http.get('http://120.27.49.154:8080/BreastCancer/getQuestion?' + 'userId=aaa' + '&paperModule=1')
+
+    $http.post('http://120.27.49.154:8080/BreastCancer/getQuestion',{
+        'userId': 'aaa',
+        'paperModule': '1'
+    })
         .success(function (resp) {
+            console.log(resp)
             if (resp.msg == 'success') {
                 $scope.modOne = sumWeight(_.flatten(resp.body.questions));
                 // console.log(sumWeight($scope.modOne))
