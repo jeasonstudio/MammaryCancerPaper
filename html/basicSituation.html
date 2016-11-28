@@ -20,7 +20,7 @@
 				</div>
 				<!--是单选-->
 				<div ng-if="ques.questionAnswerType == 1">
-					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span><span class="chooseInfo">(单选)</span></div>
+					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in ques.options">
 					<div class="weui-cell__hd">
@@ -39,7 +39,7 @@
 						<div class="weui-cell">
 							<div class="weui-cell__hd"><label class="weui-label" ng-bind="ques.questionContent"></label></div>
 							<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="{{ques.questionContent}}">
+								<input class="weui-input" type="text" placeholder="{{}}">
 							</div>
 						</div>
 					</div>
