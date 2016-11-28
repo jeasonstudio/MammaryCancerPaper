@@ -4,12 +4,12 @@
 		<div class="swiper-slide" ng-repeat="pages in setModTwo" repeat-finish>
 			<div ng-repeat="ques in pages">
 				<!--是多选-->
-				<div ng-if="ques.questionAnswerType == 2">
+				<div ng-if="ques.questionAnswerType == 2" id="{{ques.UUID}}">
 					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span><span class="chooseInfo">(多选)</span></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="checkbox + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in ques.options">
+					<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}" ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
-							<input type="checkbox" class="weui-check" name="checkbox + {{$parent.$index}} + {{$index}}" id="checkbox + {{$parent.$index}} + {{$index}}">
+							<input type="checkbox" class="weui-check" name="checkbox-{{itemOption.anwserId}}" id="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
@@ -19,22 +19,22 @@
 					</div>
 				</div>
 				<!--是单选-->
-				<div ng-if="ques.questionAnswerType == 1">
+				<div ng-if="ques.questionAnswerType == 1" id="{{ques.UUID}}">
 					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in ques.options">
-					<div class="weui-cell__hd">
-						<input type="radio" class="weui-check" name="radio + {{$parent.$index}}" id="radio + {{$parent.$index}} + {{$index}}">
-						<i class="weui-icon-checked"></i>
-					</div>
-					<div class="weui-cell__bd">
-						<h5 ng-bind="itemOption.anwserContent"></h5>
-					</div>
-				</label>
+					<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}" ng-repeat="itemOption in ques.options">
+						<div class="weui-cell__hd">
+							<input type="radio" class="weui-check" name="radio-{{ques.UUID}}" id="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
+							<i class="weui-icon-checked"></i>
+						</div>
+						<div class="weui-cell__bd">
+							<h5 ng-bind="itemOption.anwserContent"></h5>
+						</div>
+					</label>
 					</div>
 				</div>
 				<!--是填空-->
-				<div ng-if="ques.questionAnswerType == 3">
+				<div ng-if="ques.questionAnswerType == 3" id="{{ques.UUID}}">
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
 							<div class="weui-cell__hd"><label class="weui-label" ng-bind="ques.questionContent"></label></div>

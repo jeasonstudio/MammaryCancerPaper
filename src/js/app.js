@@ -50,10 +50,9 @@ var allFactory = {
 app.directive('repeatFinish', function () {
     return {
         link: function (scope, element, attr) {
-            // console.log(scope.$index)
             if (scope.$last == true) {
                 rootScopeswiper = makeSwiper()
-                console.log('ng-repeat执行完毕')
+                console.log('ng-repeat render finish')
             }
         }
     }
