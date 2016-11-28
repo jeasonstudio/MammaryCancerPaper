@@ -46,6 +46,19 @@ var allFactory = {
     "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion"
 }
 
+// 监听 ng-reapeat 完成
+app.directive('repeatFinish', function () {
+    return {
+        link: function (scope, element, attr) {
+            // console.log(scope.$index)
+            if (scope.$last == true) {
+                rootScopeswiper = makeSwiper()
+                console.log('ng-repeat执行完毕')
+            }
+        }
+    }
+})
+
 // 初始化 swiper
 function makeSwiper() {
     var swiperObj = {
@@ -235,13 +248,14 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
-    $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
 
     $scope.setModTwoQue = function (tagArr) {
         console.log(tagArr)
         $scope.setModTwo = tagArr;
     }
+
+    // $rootScope.swiper = makeSwiper()
 
     $http.post(allFactory.reqAdd, {
             'userId': 'aaa',

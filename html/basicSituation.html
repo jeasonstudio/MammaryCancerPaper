@@ -1,7 +1,7 @@
 <div class="swiper-container swiper-container-basicSituation">
 	<div class="swiper-pagination"></div>
 	<div class="swiper-wrapper">
-		<div class="swiper-slide" ng-repeat="pages in setModTwo">
+		<div class="swiper-slide" ng-repeat="pages in setModTwo" repeat-finish>
 			<div ng-repeat="ques in pages">
 				<!--是多选-->
 				<div ng-if="ques.questionAnswerType == 2">
@@ -39,7 +39,7 @@
 						<div class="weui-cell">
 							<div class="weui-cell__hd"><label class="weui-label" ng-bind="ques.questionContent"></label></div>
 							<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="{{}}">
+								<input class="weui-input" type="text" placeholder="{{ques.questionContent}}">
 							</div>
 						</div>
 					</div>
