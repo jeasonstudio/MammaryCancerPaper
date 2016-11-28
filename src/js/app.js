@@ -42,7 +42,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 var allFactory = {
-    "ipAddress": "./testJson"
+    "ipAddress": "./testJson",
+    "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion"
 }
 
 // 初始化 swiper
@@ -216,10 +217,10 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
     }
 
 
-    $http.post('http://120.27.49.154:8080/BreastCancer/getQuestion',{
-        'userId': 'aaa',
-        'paperModule': '1'
-    })
+    $http.post(allFactory.reqAdd, {
+            'userId': 'aaa',
+            'paperModule': '1'
+        })
         .success(function (resp) {
             console.log(resp)
             if (resp.msg == 'success') {
@@ -236,6 +237,25 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $rootScope.swiper = makeSwiper()
     $(".swiper-slide").height($(window).height() - 50);
+
+    $scope.setModTwoQue = function (tagArr) {
+        console.log(tagArr)
+        $scope.setModTwo = tagArr;
+    }
+
+    $http.post(allFactory.reqAdd, {
+            'userId': 'aaa',
+            'paperModule': '2'
+        })
+        .success(function (resp) {
+            console.log(resp)
+            if (resp.msg == 'success') {
+                $scope.modTwo = sumWeight(_.flatten(resp.body.questions));
+                // console.log(sumWeight($scope.modOne))
+                $scope.setModTwoQue($scope.modTwo);
+            }
+        });
+
 
 });
 

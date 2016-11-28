@@ -168,8 +168,8 @@ label {
 }
 
 .weui-label {
-    width: 70px;
-    padding: 5px 0;
+    width: 120px;
+    padding: 5px 5px 0 0;
 }
 
 .weui-input {
