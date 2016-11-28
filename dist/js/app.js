@@ -258,7 +258,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
     $http.post(allFactory.reqAdd, {
             'userId': 'aaa',
-            'paperModule': '2'
+            'paperModule': '4'
         })
         .success(function (resp) {
             console.log(resp)
