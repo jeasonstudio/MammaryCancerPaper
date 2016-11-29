@@ -42,8 +42,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 var allFactory = {
+    "userId": "aaa",
     "ipAddress": "./testJson",
-    "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion"
+    "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion",
+    "postAnswer": ""
 }
 
 // 监听 ng-reapeat 完成
@@ -230,7 +232,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
 
     $http.post(allFactory.reqAdd, {
-            'userId': 'aaa',
+            'userId': allFactory.userId,
             'paperModule': '1'
         })
         .success(function (resp) {
@@ -253,6 +255,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     // 答案数组
     $scope.userAnswer = []
 
+    // 填空答题
     $scope.fillBlank = function (uuid, value) {
         var thisQues = {
             "UUID": uuid,
@@ -261,14 +264,14 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
         // 若答过就不添加只修改
         if ($scope.userAnswer.length != 0) {
-            var judgeHave = false;
+            var judgeHaveAnswered = false;
             _.each($scope.userAnswer, function (b) {
                 if (b.UUID == uuid) {
                     b.answerId = [value];
-                    judgeHave = true;
+                    judgeHaveAnswered = true;
                 }
             })
-            if (!judgeHave) {
+            if (!judgeHaveAnswered) {
                 $scope.userAnswer.push(thisQues)
             }
         } else {
@@ -286,14 +289,14 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
         // 若答过就不添加只修改
         if ($scope.userAnswer.length != 0) {
-            var judgeHave = false;
+            var judgeHaveAnswered = false;
             _.each($scope.userAnswer, function (b) {
                 if (b.UUID == uuid) {
                     b.answerId = [option];
-                    judgeHave = true;
+                    judgeHaveAnswered = true;
                 }
             })
-            if (!judgeHave) {
+            if (!judgeHaveAnswered) {
                 $scope.userAnswer.push(thisQues)
             }
         } else {
@@ -304,7 +307,37 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
     // 多选题答题事件
     $scope.chooseDou = function (uuid, option) {
+        var thisQues = {
+            "UUID": uuid,
+            "answerId": [option]
+        }
 
+        // 若答过就不添加只修改
+        if ($scope.userAnswer.length != 0) {
+            var judgeHaveAnswered = false;
+            _.each($scope.userAnswer, function (b) {
+                if (b.UUID == uuid) {
+                    var judgeOption = false;
+                    _.each(b.answerId, function (ans, k) {
+                        if (ans == option) {
+                            b.answerId.splice(k, 1)
+                                // 若已选过，则删除这个 option
+                            judgeOption = true;
+                        }
+                    })
+                    if (!judgeOption) {
+                        b.answerId.push(option)
+                    }
+                    judgeHaveAnswered = true;
+                }
+            })
+            if (!judgeHaveAnswered) {
+                $scope.userAnswer.push(thisQues)
+            }
+        } else {
+            $scope.userAnswer.push(thisQues)
+        }
+        console.log($scope.userAnswer)
     }
 
     // 渲染题目
@@ -315,7 +348,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
     // 请求题目
     $http.post(allFactory.reqAdd, {
-            'userId': 'aaa',
+            'userId': allFactory.userId,
             'paperModule': '2'
         })
         .success(function (resp) {
@@ -326,6 +359,20 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                 $scope.setModTwoQue($scope.modTwo);
             }
         });
+
+    // 用户回答
+    $scope.httpAnswer = function () {
+        $http.post(allFactory.postAnswer, {
+                "userId": allFactory.userId,
+                "paperModule": '2',
+                "anwser": $scope.userAnswer
+            })
+            .success(function (resp) {
+                if (resp.msg == 'success') {
+                    console.log(resp.body)
+                }
+            });
+    }
 
 
 });
