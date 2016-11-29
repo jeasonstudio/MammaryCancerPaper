@@ -304,7 +304,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
     // 多选题答题事件
     $scope.chooseDou = function (uuid, option) {
-  
+
+        
     }
 
     // 渲染题目
