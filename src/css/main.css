@@ -176,3 +176,9 @@ label {
     border-bottom: 1px solid #D9D9D9;
     border-radius: 0;
 }
+
+.innerTitle {
+    text-align: center;
+    font-size: 20px;
+    border-bottom: 2px solid #444;
+}

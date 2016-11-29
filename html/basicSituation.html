@@ -20,7 +20,7 @@
 					</div>
 				</div>
 				<!--是单选-->
-				<div ng-if="ques.questionAnswerType == 1 || ques.questionAnswerType == 4 ||ques.questionAnswerType == 5 ||ques.questionAnswerType == 0" id="{{ques.UUID}}">
+				<div ng-if="ques.questionAnswerType == 1 || ques.questionAnswerType == 4 ||ques.questionAnswerType == 5" id="{{ques.UUID}}">
 					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
@@ -46,6 +46,16 @@
 						<div class="weui-cell">
 							<div class="weui-cell__bd fillInput_blank">
 								<input class="weui-input" type="text" placeholder="请输入所填信息">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--是标题-->
+				<div ng-if="ques.questionAnswerType == 0">
+					<div class="weui-cells weui-cells_form">
+						<div class="weui-cell">
+							<div class="weui-cell__hd fillInput_name">
+								<label class="weui-label innerTitle" ng-bind="ques.questionContent"></label>
 							</div>
 						</div>
 					</div>

@@ -248,6 +248,12 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
+    $scope.userAnswer = []
+
+    $scope.checkRadio = function(a, b) {
+        // alert("ss")
+        console.log(a, b)
+    }
 
     $scope.setModTwoQue = function (tagArr) {
         console.log(tagArr)
@@ -258,7 +264,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
     $http.post(allFactory.reqAdd, {
             'userId': 'aaa',
-            'paperModule': '1'
+            'paperModule': '2'
         })
         .success(function (resp) {
             console.log(resp)
