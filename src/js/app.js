@@ -249,8 +249,8 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
-    $scope.countPage = 2;
     $(".swiper-slide").height($(window).height() - 50);
+    var thisModule = '2';
 
     // 答案数组
     $scope.userAnswer = []
@@ -349,7 +349,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     // 请求题目
     $http.post(allFactory.reqAdd, {
             'userId': allFactory.userId,
-            'paperModule': '2'
+            'paperModule': thisModule
         })
         .success(function (resp) {
             console.log(resp)
@@ -364,7 +364,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     $scope.httpAnswer = function () {
         $http.post(allFactory.postAnswer, {
                 "userId": allFactory.userId,
-                "paperModule": '2',
+                "paperModule": thisModule,
                 "anwser": $scope.userAnswer
             })
             .success(function (resp) {
