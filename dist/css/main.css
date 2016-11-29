@@ -95,6 +95,7 @@
 
 .newFonts {
     font-size: 28px;
+    color: inherit;
 }
 
 .menu {

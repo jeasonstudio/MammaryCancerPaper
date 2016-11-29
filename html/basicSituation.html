@@ -10,7 +10,7 @@
 						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
 										ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
-							<input type="checkbox" class="weui-check" name="checkbox-{{itemOption.anwserId}}" id="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
+							<input type="checkbox" class="weui-check" ng-click="chooseDou(ques.UUID,itemOption.anwserId)" name="checkbox-{{itemOption.anwserId}}" id="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
@@ -26,7 +26,7 @@
 						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
 										ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
-							<input type="radio" class="weui-check" name="radio-{{ques.UUID}}" id="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
+							<input type="radio" class="weui-check" ng-click="chooseSin(ques.UUID,itemOption.anwserId)" name="radio-{{ques.UUID}}" id="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
@@ -45,7 +45,7 @@
 						</div>
 						<div class="weui-cell">
 							<div class="weui-cell__bd fillInput_blank">
-								<input class="weui-input" type="text" placeholder="请输入所填信息">
+								<input class="weui-input" type="text" ng-model="yourInput" placeholder="请输入" ng-blur="fillBlank(ques.UUID,yourInput)">
 							</div>
 						</div>
 					</div>

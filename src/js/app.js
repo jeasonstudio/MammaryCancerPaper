@@ -247,21 +247,73 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
+    $scope.countPage = 2;
     $(".swiper-slide").height($(window).height() - 50);
+
+    // 答案数组
     $scope.userAnswer = []
 
-    $scope.checkRadio = function(a, b) {
-        // alert("ss")
-        console.log(a, b)
+    $scope.fillBlank = function (uuid, value) {
+        var thisQues = {
+            "UUID": uuid,
+            "answerId": [value]
+        }
+
+        // 若答过就不添加只修改
+        if ($scope.userAnswer.length != 0) {
+            var judgeHave = false;
+            _.each($scope.userAnswer, function (b) {
+                if (b.UUID == uuid) {
+                    b.answerId = [value];
+                    judgeHave = true;
+                }
+            })
+            if (!judgeHave) {
+                $scope.userAnswer.push(thisQues)
+            }
+        } else {
+            $scope.userAnswer.push(thisQues)
+        }
+        console.log($scope.userAnswer)
     }
 
+    // 单选题选择事件
+    $scope.chooseSin = function (uuid, option) {
+        var thisQues = {
+            "UUID": uuid,
+            "answerId": [option]
+        }
+
+        // 若答过就不添加只修改
+        if ($scope.userAnswer.length != 0) {
+            var judgeHave = false;
+            _.each($scope.userAnswer, function (b) {
+                if (b.UUID == uuid) {
+                    b.answerId = [option];
+                    judgeHave = true;
+                }
+            })
+            if (!judgeHave) {
+                $scope.userAnswer.push(thisQues)
+            }
+        } else {
+            $scope.userAnswer.push(thisQues)
+        }
+        console.log($scope.userAnswer)
+    }
+
+    // 多选题答题事件
+    $scope.chooseDou = function (uuid, option) {
+
+    }
+
+    // 渲染题目
     $scope.setModTwoQue = function (tagArr) {
         console.log(tagArr)
         $scope.setModTwo = tagArr;
     }
 
-    // $rootScope.swiper = makeSwiper()
-
+    // 请求题目
     $http.post(allFactory.reqAdd, {
             'userId': 'aaa',
             'paperModule': '2'
