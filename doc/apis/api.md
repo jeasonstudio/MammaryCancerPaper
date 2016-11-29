@@ -55,4 +55,30 @@
     "msg":"",
     "errorText":""
 }
+
+// 注册
+
+{
+    "teleNum": "",
+    "password": "",  //md5
+    "roleName":""// doc 或者 patient
+}
+
+// 注册反馈
+{
+    "msg": "",
+    "errorText": ""
+}
+
+
+// 登录
+{
+    "teleNum":"",
+    "password": "",  //md5
+    "roleName":""// doc 或者 patient
+}
+{
+    "msg": "",
+    "errorText": ""
+}
 ```
