@@ -307,8 +307,6 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
 
 
 
-
-        
     }
 
     // 渲染题目
