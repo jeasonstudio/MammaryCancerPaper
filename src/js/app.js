@@ -254,58 +254,72 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     // 登录弹窗
     $scope.alertLogin = function () {
         swal({
-                title: '登录',
-                type: 'warning',
-                allowOutsideClick: false,
-                showCloseButton: false,
-                animation: false,
-                input: 'password',
-                inputPlaceholder: '密码(6-10位)',
-                html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' + 
-                    '',
+            title: '登录',
+            type: 'warning',
+            allowOutsideClick: false,
+            showCloseButton: false,
+            animation: false,
+            input: 'password',
+            inputPlaceholder: '密码(6-10位)',
+            html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
+                '',
 
-                inputValidator: function (value) {
-                    return new Promise(function (resolve, reject) {
-                        console.log(value)
-                        $teleNum = $('#teleNum').val();
-                        if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
-                            resolve()
-                        } else if($teleNum == '') {
-                            reject('You need to write teleNum!')
-                        } else {
-                            reject('You need to write passwd!')
-                        } 
-                    })
-                },
-                showCancelButton: true,
-                confirmButtonText: '登录',
-                cancelButtonText: '注册'
-            })
-            .then(function (result) {
-                swal(JSON.stringify(result))
-            })
-            .catch(swal.noop)
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    console.log(value)
+                    $teleNum = $('#teleNum').val();
+                    if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
+                        resolve()
+                    } else if ($teleNum == '') {
+                        reject('You need to write teleNum!')
+                    } else {
+                        reject('You need to write passwd!')
+                    }
+                })
+            },
+            showCancelButton: true,
+            confirmButtonText: '登录',
+            cancelButtonText: '去注册'
+        }).then(function (result) {
+            swal(JSON.stringify(result))
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                $scope.alertRegister()
+            }
+        }).catch(swal.noop)
     }
 
     // 注册弹窗
     $scope.alertRegister = function () {
         swal.setDefaults({
             input: 'text',
-            confirmButtonText: 'Next &rarr;',
+            confirmButtonText: '下一步&rarr;',
+            allowOutsideClick: false,
+            showCloseButton: false,
             showCancelButton: true,
             animation: false,
+            cancelButtonText: '去登录',
             progressSteps: ['1', '2', '3', '4']
         })
 
         var steps = [{
                 title: '手机号码',
-                text: '请输入您的真实手机号码'
+                input: 'text',
+                inputPlaceholder: '请输入您的真实手机号码',
+                confirmButtonText: '发送验证码'
             }, {
                 title: '验证码',
-                text: '请填入刚刚收到的验证码'
-            },
-            '密码',
-            '重复输入密码'
+                input: 'text',
+                inputPlaceholder: '请填入刚刚收到的验证码'
+            }, {
+                title: '密码',
+                input: 'password',
+                inputPlaceholder: '密码(6-10位)'
+            }, {
+                title: '重复输入密码',
+                input: 'password',
+                inputPlaceholder: '重复输入密码(6-10位)'
+            }
         ]
 
         swal.queue(steps).then(function (result) {
@@ -320,6 +334,10 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
             })
         }, function () {
             swal.resetDefaults()
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                $scope.alertLogin()
+            }
         })
     }
 
