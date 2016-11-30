@@ -53,7 +53,7 @@ app.directive('repeatFinish', function () {
     return {
         link: function (scope, element, attr) {
             if (scope.$last == true) {
-                rootScopeswiper = makeSwiper()
+                scope.rootSwiper = makeSwiper()
                 console.log('ng-repeat render finish')
             }
         }
@@ -250,6 +250,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
+
+
     var thisModule = '2';
 
     // 答案数组
