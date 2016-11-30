@@ -251,7 +251,89 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
 
+    // 登录弹窗
+    $scope.alertLogin = function () {
+        swal({
+                title: '登录',
+                type: 'warning',
+                allowOutsideClick: false,
+                showCloseButton: false,
+                animation: false,
+                input: 'text',
+                html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
+                    '<input class="swal2-input" id="passwd" placeholder="密码" type=" passwd" style="display: block;">',
+                // preConfirm: function () {
+                //     return new Promise(function (resolve) {
+                //         resolve([
+                //             $('#teleNum').val(),
+                //             $('#passwd').val()
+                //         ])
+                //         reject('ssskkk')
+                //     })
+                // },
+                inputValidator: function (value) {
+                    return new Promise(function (resolve, reject) {
+                        $teleNum = $('#teleNum').val();
+                        $passwd = $('#passwd').val();
+                        if ($teleNum != '' && $passwd != '') {
+                            resolve([$teleNum,$passwd])
+                        } else if($teleNum == '') {
+                            reject('You need to write teleNum!')
+                        } else if($passwd == '') {
+                            reject('You need to write passwd!')
+                        } 
+                    })
+                },
+                showCancelButton: true,
+                confirmButtonText: '登录',
+                cancelButtonText: '注册'
+            })
+            // .clickCancel(console.log('sssssss'))
+            .then(function (result) {
+                swal(JSON.stringify(result))
+            })
+            // .close($scope.alertRegister())
+            .catch(swal.noop)
+    }
 
+    // 注册弹窗
+    $scope.alertRegister = function () {
+        swal.setDefaults({
+            input: 'text',
+            confirmButtonText: 'Next &rarr;',
+            showCancelButton: true,
+            animation: false,
+            progressSteps: ['1', '2', '3', '4']
+        })
+
+        var steps = [{
+                title: '手机号码',
+                text: '请输入您的真实手机号码'
+            }, {
+                title: '验证码',
+                text: '请填入刚刚收到的验证码'
+            },
+            '密码',
+            '重复输入密码'
+        ]
+
+        swal.queue(steps).then(function (result) {
+            swal.resetDefaults()
+            swal({
+                title: '成功!',
+                html: 'Your answers: <pre>' +
+                    JSON.stringify(result) +
+                    '</pre>',
+                confirmButtonText: '开始填写',
+                showCancelButton: false
+            })
+        }, function () {
+            swal.resetDefaults()
+        })
+    }
+
+
+    // 当前模块号
     var thisModule = '2';
 
     // 答案数组
@@ -359,6 +441,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                 $scope.modTwo = sumWeight(_.flatten(resp.body.questions));
                 // console.log(sumWeight($scope.modOne))
                 $scope.setModTwoQue($scope.modTwo);
+
+                $scope.alertLogin();
             }
         });
 

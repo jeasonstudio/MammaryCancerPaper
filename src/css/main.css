@@ -183,3 +183,12 @@ label {
     font-size: 20px;
     border-bottom: 2px solid #444;
 }
+
+
+
+
+/*loginandout*/
+
+.swal2-input {
+    display: none;
+}
