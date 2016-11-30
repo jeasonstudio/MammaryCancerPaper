@@ -138,7 +138,7 @@
     color: #bbb;
 }
 
-.weui-cells > label {
+.weui-cells>label {
     font-weight: normal;
     margin: 0;
 }
@@ -185,10 +185,49 @@ label {
 }
 
 
-
-
 /*loginandout*/
 
-.swal2-modal .swal2-file, .swal2-modal .swal2-input, .swal2-modal .swal2-textarea {
+.swal2-modal .swal2-file,
+.swal2-modal .swal2-input,
+.swal2-modal .swal2-textarea {
     box-shadow: none;
+}
+
+/*loginEnd*/
+
+.shortInput {
+    width: 70px;
+    margin: auto 5px;
+    border: none;
+    border-bottom: 1px solid #D9D9D9;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+    background-color: transparent;
+    font-size: inherit;
+    height: 1.41176471em;
+    line-height: 1.41176471;
+    text-align: center;
+}
+
+.longInput {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 1px solid #D9D9D9;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+    background-color: transparent;
+    font-size: inherit;
+    height: 1.41176471em;
+    line-height: 1.41176471;
+}
+
+.shortInput::-ms-input-placeholder {
+    text-align: center;
+}
+
+.shortInput::-webkit-input-placeholder {
+    text-align: center;
 }
