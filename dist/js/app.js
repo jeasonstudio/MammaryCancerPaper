@@ -259,7 +259,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
     $scope.alertLogin = function () {
         swal({
             title: '登录',
-            type: 'warning',
+            // type: 'warning',
             allowOutsideClick: false,
             showCloseButton: false,
             animation: false,
@@ -521,11 +521,15 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
             });
     }
 
-    if (allFactory.isLogin) {
-        $scope.getPage()
-    } else {
-        $scope.alertLogin();
-    }
+    // 测试代码
+    $scope.getPage()
+
+    // 下面为生产代码
+    // if (allFactory.isLogin) {
+    //     $scope.getPage()
+    // } else {
+    //     $scope.alertLogin();
+    // }
 });
 
 // 3疾病与家族史
