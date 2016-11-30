@@ -259,27 +259,20 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                 allowOutsideClick: false,
                 showCloseButton: false,
                 animation: false,
-                input: 'text',
-                html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-                    '<input class="swal2-input" id="passwd" placeholder="密码" type=" passwd" style="display: block;">',
-                // preConfirm: function () {
-                //     return new Promise(function (resolve) {
-                //         resolve([
-                //             $('#teleNum').val(),
-                //             $('#passwd').val()
-                //         ])
-                //         reject('ssskkk')
-                //     })
-                // },
+                input: 'password',
+                inputPlaceholder: '密码(6-10位)',
+                html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' + 
+                    '',
+
                 inputValidator: function (value) {
                     return new Promise(function (resolve, reject) {
+                        console.log(value)
                         $teleNum = $('#teleNum').val();
-                        $passwd = $('#passwd').val();
-                        if ($teleNum != '' && $passwd != '') {
-                            resolve([$teleNum,$passwd])
+                        if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
+                            resolve()
                         } else if($teleNum == '') {
                             reject('You need to write teleNum!')
-                        } else if($passwd == '') {
+                        } else {
                             reject('You need to write passwd!')
                         } 
                     })
@@ -288,11 +281,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                 confirmButtonText: '登录',
                 cancelButtonText: '注册'
             })
-            // .clickCancel(console.log('sssssss'))
             .then(function (result) {
                 swal(JSON.stringify(result))
             })
-            // .close($scope.alertRegister())
             .catch(swal.noop)
     }
 
