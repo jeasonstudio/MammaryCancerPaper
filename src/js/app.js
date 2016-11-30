@@ -1,5 +1,5 @@
 //启动入口
-var app = angular.module('myApp', ["ngRoute", "ui.router"])
+var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when("", "/personal");
@@ -44,6 +44,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 var allFactory = {
     "userId": "",
     "password": "",
+    "HASHPASSWD": "",
     "ipAddress": "./testJson",
     "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion",
     "postAnswer": "",
@@ -248,8 +249,11 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 });
 
 // 2基本情况
-app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state) {
+app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state , md5) {
     // if(!allFactory.isLogin) $state.go('personal',{})
+
+    // 这里是一个 md5加密的例子
+    console.log(md5.createHash('444444').length)
 
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
@@ -320,8 +324,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
             inputPlaceholder: '请输入您的真实手机号码',
             confirmButtonText: '发送验证码',
             inputValidator: function (value) {
-                return new Promise(function (resolve,reject) {
-                    if(value != '') {
+                return new Promise(function (resolve, reject) {
+                    if (value != '') {
                         allFactory.userId = value
                         resolve()
                     } else {
@@ -360,7 +364,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
                         // TODO：在这里发送注册请求
                         allFactory.isLogin = true;
                         $scope.getPage()
-                        // TODO：在这里发送注册请求
+                            // TODO：在这里发送注册请求
                     } else if (value != yourPassWord) {
                         reject('密码输入不符')
                     } else {
