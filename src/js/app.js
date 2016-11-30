@@ -42,10 +42,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 var allFactory = {
-    "userId": "aaa",
+    "userId": "",
+    "password": "",
     "ipAddress": "./testJson",
     "reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion",
-    "postAnswer": ""
+    "postAnswer": "",
+    "isLogin": false
 }
 
 // 监听 ng-reapeat 完成
@@ -246,7 +248,9 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 });
 
 // 2基本情况
-app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
+app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state) {
+    // if(!allFactory.isLogin) $state.go('personal',{})
+
     console.log("basicSituationCtrl  p2");
     $(".icon-xinyongqingkuang-copy").addClass("active")
     $(".swiper-slide").height($(window).height() - 50);
@@ -271,9 +275,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                     if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
                         resolve()
                     } else if ($teleNum == '') {
-                        reject('You need to write teleNum!')
+                        reject('请正确填写手机号!')
                     } else {
-                        reject('You need to write passwd!')
+                        reject('请正确填写密码!')
                     }
                 })
             },
@@ -281,7 +285,13 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
             confirmButtonText: '登录',
             cancelButtonText: '去注册'
         }).then(function (result) {
-            swal(JSON.stringify(result))
+            allFactory.userId = $('#teleNum').val();
+            allFactory.password = result;
+            allFactory.isLogin = true;
+            // TODO: 在这里发送登录请求
+            // swal(JSON.stringify(result))
+            // 获取题目
+            $scope.getPage();
         }, function (dismiss) {
             if (dismiss === 'cancel') {
                 $scope.alertRegister()
@@ -302,25 +312,63 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
             progressSteps: ['1', '2', '3', '4']
         })
 
+        var yourPassWord;
+
         var steps = [{
-                title: '手机号码',
-                input: 'text',
-                inputPlaceholder: '请输入您的真实手机号码',
-                confirmButtonText: '发送验证码'
-            }, {
-                title: '验证码',
-                input: 'text',
-                inputPlaceholder: '请填入刚刚收到的验证码'
-            }, {
-                title: '密码',
-                input: 'password',
-                inputPlaceholder: '密码(6-10位)'
-            }, {
-                title: '重复输入密码',
-                input: 'password',
-                inputPlaceholder: '重复输入密码(6-10位)'
+            title: '手机号码',
+            input: 'text',
+            inputPlaceholder: '请输入您的真实手机号码',
+            confirmButtonText: '发送验证码',
+            inputValidator: function (value) {
+                return new Promise(function (resolve,reject) {
+                    if(value != '') {
+                        allFactory.userId = value
+                        resolve()
+                    } else {
+                        reject('请输入正确的手机号')
+                    }
+                })
             }
-        ]
+        }, {
+            title: '验证码',
+            input: 'text',
+            inputPlaceholder: '请填入刚刚收到的验证码'
+        }, {
+            title: '密码',
+            input: 'password',
+            inputPlaceholder: '密码(6-10位)',
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    if (value.length >= 6 && value.length <= 10) {
+                        yourPassWord = value;
+                        resolve()
+                    } else {
+                        reject('请按格式正确输入密码')
+                    }
+                })
+            }
+        }, {
+            title: '重复输入密码',
+            input: 'password',
+            inputPlaceholder: '重复输入密码(6-10位)',
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    if (value.length >= 6 && value.length <= 10 && value == yourPassWord) {
+                        allFactory.password = yourPassWord;
+                        resolve()
+
+                        // TODO：在这里发送注册请求
+                        allFactory.isLogin = true;
+                        $scope.getPage()
+                        // TODO：在这里发送注册请求
+                    } else if (value != yourPassWord) {
+                        reject('密码输入不符')
+                    } else {
+                        reject('请按格式正确输入密码')
+                    }
+                })
+            }
+        }]
 
         swal.queue(steps).then(function (result) {
             swal.resetDefaults()
@@ -332,10 +380,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
                 confirmButtonText: '开始填写',
                 showCancelButton: false
             })
-        }, function () {
-            swal.resetDefaults()
         }, function (dismiss) {
             if (dismiss === 'cancel') {
+                swal.resetDefaults()
                 $scope.alertLogin()
             }
         })
@@ -440,20 +487,23 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
     }
 
     // 请求题目
-    $http.post(allFactory.reqAdd, {
-            'userId': allFactory.userId,
-            'paperModule': thisModule
-        })
-        .success(function (resp) {
-            console.log(resp)
-            if (resp.msg == 'success') {
-                $scope.modTwo = sumWeight(_.flatten(resp.body.questions));
-                // console.log(sumWeight($scope.modOne))
-                $scope.setModTwoQue($scope.modTwo);
-
-                $scope.alertLogin();
-            }
-        });
+    $scope.getPage = function () {
+        $http.post(allFactory.reqAdd, {
+                'userId': allFactory.userId,
+                'paperModule': thisModule
+            })
+            .success(function (resp) {
+                console.log(resp)
+                if (resp.msg == 'success') {
+                    $scope.modTwo = sumWeight(_.flatten(resp.body.questions));
+                    // console.log(sumWeight($scope.modOne))
+                    $scope.setModTwoQue($scope.modTwo);
+                } else {
+                    swal('网络错误，请重试', 'error')
+                    $scope.alertLogin()
+                }
+            });
+    }
 
     // 用户回答
     $scope.httpAnswer = function () {
@@ -465,11 +515,17 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http) {
             .success(function (resp) {
                 if (resp.msg == 'success') {
                     console.log(resp.body)
+                } else {
+                    swal('网络错误，请重试', 'error')
                 }
             });
     }
 
-
+    if (allFactory.isLogin) {
+        $scope.getPage()
+    } else {
+        $scope.alertLogin();
+    }
 });
 
 // 3疾病与家族史
