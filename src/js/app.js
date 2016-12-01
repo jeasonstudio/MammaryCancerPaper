@@ -518,12 +518,12 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 用户回答
 	httpAnswer = function () {
 		$http.post(allFactory.setAnwserAddress, {
-				"userId": "22",//allFactory.userId,
+				"userId": "Jeason",//allFactory.userId,
 				"paperModule": thisModule,
 				"answer": $scope.userAnswer
 			})
 			.success(function (resp) {
-				if (resp.msg == 'success') {
+				if (resp.msg) {
 					console.log(resp.body)
 				} else {
 					swal('网络错误，请重试','', 'error')
