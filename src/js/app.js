@@ -1,5 +1,5 @@
 //启动入口
-var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize"])
+var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize", "ngCookies"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.when("", "/personal");
@@ -256,8 +256,11 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 });
 
 // 2基本情况
-app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, md5) {
+app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, $cookieStore, md5) {
 	// if(!allFactory.isLogin) $state.go('personal',{})
+	var a = $cookieStore.put("AngularJs", "xcccc");
+	var b = $cookieStore.get("AngularJs");
+	console.log(b)
 
 	// 这里是一个 md5加密的例子
 	// console.log(md5.createHash('444444').length)
@@ -381,7 +384,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 						allFactory.HASHPASSWD = md5.createHash(yourPassWord);
 
 						$http.post(allFactory.postRegister, {
-								"teleNum": "13220101996", //allFactory.userId,
+								"teleNum": "15600562280", //allFactory.userId,
 								"password": allFactory.HASHPASSWD,
 								"roleName": "patient"
 							})
@@ -393,7 +396,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 									$scope.getPage()
 								} else {
 									swal.resetDefaults()
-									swal('网络错误', '请刷新重新注册', 'error')
+									swal('错误', resp.errorText, 'error')
 								}
 							});
 
@@ -409,13 +412,21 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 		swal.queue(steps).then(function (result) {
 			swal.resetDefaults()
 			swal({
-				title: '成功!',
-				html: 'Your answers: <pre>' +
-					JSON.stringify(result) +
-					'</pre>',
-				confirmButtonText: '开始填写',
-				showCancelButton: false
-			})
+				title: '注册成功',
+				type: 'success',
+				showCancelButton: false,
+				showConfirmButton: false,
+				text: '请开始填写问卷，2秒后关闭',
+				timer: 2000
+			}).then(
+				function () {},
+				// handling the promise rejection
+				function (dismiss) {
+					if (dismiss === 'timer') {
+						console.log('I was closed by the timer')
+					}
+				}
+			)
 		}, function (dismiss) {
 			if (dismiss === 'cancel') {
 				swal.resetDefaults()
