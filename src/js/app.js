@@ -1,5 +1,5 @@
 //启动入口
-var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize", "ngCookies"])
+var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.when("", "/personal");
@@ -258,7 +258,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 });
 
 // 2基本情况
-app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, $cookieStore, md5) {
+app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, md5) {
 	// if(!allFactory.isLogin) $state.go('personal',{})
 
 	// 这里是一个 md5加密的例子
@@ -565,7 +565,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 请求题目
 	$scope.getPage = function () {
 		$http.post(allFactory.ipAddress, {
-				'userId': "22", //allFactory.userId,
+				'userId': allFactory.userId,
 				'paperModule': thisModule
 			})
 			.success(function (resp) {
@@ -584,7 +584,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 用户回答
 	httpAnswer = function () {
 		$http.post(allFactory.setAnwserAddress, {
-				"userId": "22", //allFactory.userId,
+				"userId": allFactory.userId,
 				"paperModule": thisModule,
 				"answer": $scope.userAnswer
 			})
