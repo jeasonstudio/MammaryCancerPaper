@@ -224,6 +224,10 @@ label {
     line-height: 1.41176471;
 }
 
+.innerLongInput {
+    margin: 0;
+}
+
 .shortInput::-ms-input-placeholder {
     text-align: center;
 }
