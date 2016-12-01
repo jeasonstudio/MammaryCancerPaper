@@ -518,7 +518,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 用户回答
 	httpAnswer = function () {
 		$http.post(allFactory.setAnwserAddress, {
-				"userId": "Jeason",//allFactory.userId,
+				"userId": "22",//allFactory.userId,
 				"paperModule": thisModule,
 				"answer": $scope.userAnswer
 			})
