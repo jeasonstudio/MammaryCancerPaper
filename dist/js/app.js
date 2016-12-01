@@ -278,8 +278,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			animation: false,
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
-			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-				'',
+			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>'
+				 + '<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
