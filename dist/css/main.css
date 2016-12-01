@@ -231,3 +231,9 @@ label {
 .shortInput::-webkit-input-placeholder {
     text-align: center;
 }
+
+.infoNext {
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+}

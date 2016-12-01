@@ -77,7 +77,7 @@
     "roleName":""// doc 或者 patient
 }
 {
-    "msg": "",
+    "msg": true,
     "errorText": ""
 }
 ```

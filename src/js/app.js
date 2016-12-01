@@ -504,7 +504,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			})
 			.success(function (resp) {
 				console.log(resp)
-				if (resp.msg == 'success') {
+				if (resp.msg) {
 					$scope.modTwo = sumWeight(_.flatten(resp.body.questions));
 					// console.log(sumWeight($scope.modOne))
 					$scope.setModTwoQue($scope.modTwo);
