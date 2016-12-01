@@ -45,10 +45,11 @@ var allFactory = {
 	"userId": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion",
-	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo",
-	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion",
-	"postAnswer": "",
+	"postRegister": "", //测试用发送手机号，后台发短信
+	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion", //测试用请求题目
+	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo", //测试用提交答案
+	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
+	"postAnswer": "", //生产提交答案
 	"isLogin": false
 }
 
@@ -85,9 +86,9 @@ function makeSwiper() {
 		flip: {
 			slideShadows: false
 		},
-		onTransitionEnd: function(swiper, event){
+		onTransitionEnd: function (swiper, event) {
 			console.log("slide")
-			httpAnswer();//TODO:后期可以做一些模块化处理
+			httpAnswer(); //TODO:后期可以做一些模块化处理
 		}
 	};
 	return new Swiper('.swiper-container', swiperObj);
@@ -162,7 +163,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
 
 	$scope.aa = '足月妊娠次数<input class="insertPut shortInput" type="text" placeholder="请输入">次'
-	// $scope.aa = '您在奥斯卡级等哈看书的啊啊？<input class="insertPut longInput" type="text" placeholder="请输入">'
+		// $scope.aa = '您在奥斯卡级等哈看书的啊啊？<input class="insertPut longInput" type="text" placeholder="请输入">'
 	$scope.testDou = [{
 		"questionAnswerType": 1,
 		"questionId": "0.10",
@@ -331,8 +332,20 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			confirmButtonText: '发送验证码',
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
-					if (value != '') {
+					if (value != '') { // TODO：验证手机号
 						allFactory.userId = value
+							// $http.post(allFactory.postRegister, {
+							// 		"userId": "13220101996",//allFactory.userId,
+							// 		"password": thisModule,
+							// 		"answer": $scope.userAnswer
+							// 	})
+							// 	.success(function (resp) {
+							// 		if (resp.msg) {
+							// 			console.log(resp.body)
+							// 		} else {
+							// 			swal('网络错误，请重试', '', 'error')
+							// 		}
+							// 	});
 						resolve()
 					} else {
 						reject('请输入正确的手机号')
@@ -365,12 +378,24 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 				return new Promise(function (resolve, reject) {
 					if (value.length >= 6 && value.length <= 10 && value == yourPassWord) {
 						allFactory.password = yourPassWord;
-						resolve()
+						allFactory.HASHPASSWD = md5.createHash(yourPassWord);
 
-						// TODO：在这里发送注册请求
-						allFactory.isLogin = true;
-						$scope.getPage()
-							// TODO：在这里发送注册请求
+						$http.post(allFactory.postRegister, {
+								"teleNum": "13220101996", //allFactory.userId,
+								"password": allFactory.HASHPASSWD,
+								"roleName": "patient"
+							})
+							.success(function (resp) {
+								if (resp.msg) {
+									console.log(resp.body)
+									resolve()
+									allFactory.isLogin = true;
+									$scope.getPage()
+								} else {
+									swal('网络错误，请刷新重新注册', '', 'error')
+								}
+							});
+
 					} else if (value != yourPassWord) {
 						reject('密码输入不符')
 					} else {
@@ -499,7 +524,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 请求题目
 	$scope.getPage = function () {
 		$http.post(allFactory.ipAddress, {
-				'userId': "22",//allFactory.userId,
+				'userId': "22", //allFactory.userId,
 				'paperModule': thisModule
 			})
 			.success(function (resp) {
@@ -518,7 +543,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 用户回答
 	httpAnswer = function () {
 		$http.post(allFactory.setAnwserAddress, {
-				"userId": "22",//allFactory.userId,
+				"userId": "22", //allFactory.userId,
 				"paperModule": thisModule,
 				"answer": $scope.userAnswer
 			})
@@ -526,20 +551,20 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 				if (resp.msg) {
 					console.log(resp.body)
 				} else {
-					swal('网络错误，请重试','', 'error')
+					swal('网络错误，请重试', '', 'error')
 				}
 			});
 	}
 
 	// 测试代码
-	$scope.getPage()
+	// $scope.getPage()
 
 	// 下面为生产代码
-	// if (allFactory.isLogin) {
-	//     $scope.getPage()
-	// } else {
-	//     $scope.alertLogin();
-	// }
+	if (allFactory.isLogin) {
+		$scope.getPage()
+	} else {
+		$scope.alertLogin();
+	}
 });
 
 // 3疾病与家族史
