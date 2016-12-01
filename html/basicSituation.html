@@ -14,7 +14,7 @@
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
+							<h5 ng-bind-html="itemOption.anwserContent"></h5>
 						</div>
 					</label>
 					</div>
@@ -30,7 +30,7 @@
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
+							<h5 ng-bind-html="itemOption.anwserContent | to_trusted"></h5>
 						</div>
 					</label>
 					</div>
@@ -40,7 +40,7 @@
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
 							<div class="weui-cell__hd fillInput_name">
-								<label class="weui-label" ng-bind="ques.questionContent"></label>
+								<label class="weui-label" ng-bind-html="ques.questionContent | to_trusted"></label>
 							</div>
 						</div>
 						<div class="weui-cell">
@@ -55,7 +55,7 @@
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
 							<div class="weui-cell__hd fillInput_name">
-								<label class="weui-label innerTitle" ng-bind="ques.questionContent"></label>
+								<label class="weui-label innerTitle" ng-bind-html="ques.questionContent | to_trusted"></label>
 							</div>
 						</div>
 					</div>
