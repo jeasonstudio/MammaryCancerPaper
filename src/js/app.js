@@ -87,7 +87,7 @@ function makeSwiper() {
 		},
 		onTransitionEnd: function(swiper, event){
 			console.log("slide")
-			httpAnswer();//TODO
+			httpAnswer();//TODO:后期可以做一些模块化处理
 		}
 	};
 	return new Swiper('.swiper-container', swiperObj);
