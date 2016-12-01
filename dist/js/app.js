@@ -46,6 +46,7 @@ var allFactory = {
 	"password": "",
 	"HASHPASSWD": "",
 	"postRegister": "http://192.168.1.100/BreastCancer/register", //测试用注册
+	"postLogin": "http://192.168.1.100/BreastCancer/login", //测试用注册
 	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion", //测试用请求题目
 	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo", //测试用提交答案
 	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
@@ -301,11 +302,40 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 		}).then(function (result) {
 			allFactory.userId = $('#teleNum').val();
 			allFactory.password = result;
-			allFactory.isLogin = true;
-			// TODO: 在这里发送登录请求
-			// swal(JSON.stringify(result))
-			// 获取题目
-			$scope.getPage();
+			allFactory.HASHPASSWD = md5.createHash(result);
+
+			$http.post(allFactory.postLogin, {
+					"teleNum": allFactory.userId,
+					"password": allFactory.HASHPASSWD,
+					"roleName": "patient"
+				})
+				.success(function (resp) {
+					if (resp.msg) {
+						console.log(resp.body)
+						allFactory.isLogin = true;
+						$scope.getPage();
+						swal.resetDefaults()
+						swal({
+							title: '登录成功',
+							type: 'success',
+							showCancelButton: false,
+							showConfirmButton: false,
+							text: '请开始填写问卷，2秒后关闭',
+							timer: 2000
+						}).then(
+							function () {},
+							// handling the promise rejection
+							function (dismiss) {
+								if (dismiss === 'timer') {
+									console.log('I was closed by the timer')
+								}
+							}
+						)
+					} else {
+						swal('错误', resp.errorText, 'error').then(function(){$scope.alertLogin()})
+					}
+				});
+
 		}, function (dismiss) {
 			if (dismiss === 'cancel') {
 				$scope.alertRegister()
@@ -384,7 +414,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 						allFactory.HASHPASSWD = md5.createHash(yourPassWord);
 
 						$http.post(allFactory.postRegister, {
-								"teleNum": "15600562280", //allFactory.userId,
+								"teleNum": allFactory.userId,
 								"password": allFactory.HASHPASSWD,
 								"roleName": "patient"
 							})
@@ -396,7 +426,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 									$scope.getPage()
 								} else {
 									swal.resetDefaults()
-									swal('错误', resp.errorText, 'error')
+									swal('错误', resp.errorText, 'error').then(function() {$scope.alertRegister()})
 								}
 							});
 
