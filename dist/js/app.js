@@ -428,7 +428,6 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			$scope.userAnswer.push(thisQues)
 		}
 		console.log($scope.userAnswer)
-		httpAnswer();//TODO:生产删掉
 	}
 
 	// 单选题选择事件
@@ -454,7 +453,6 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			$scope.userAnswer.push(thisQues)
 		}
 		console.log($scope.userAnswer)
-		httpAnswer();//TODO:生产删掉
 	}
 
 	// 多选题答题事件
