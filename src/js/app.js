@@ -45,11 +45,15 @@ var allFactory = {
 	"userId": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"ipAddress": "./testJson",
+	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion",
+	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo",
 	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion",
 	"postAnswer": "",
 	"isLogin": false
 }
+
+// 用于全局答题函数
+var httpAnswer;
 
 //挂载到任意一个angular.module下，用于 ng-bind-html
 app.filter('to_trusted', ['$sce', function ($sce) {
@@ -80,6 +84,10 @@ function makeSwiper() {
 		iOSEdgeSwipeDetection: true,
 		flip: {
 			slideShadows: false
+		},
+		onTransitionEnd: function(swiper, event){
+			console.log("slide")
+			httpAnswer();//TODO
 		}
 	};
 	return new Swiper('.swiper-container', swiperObj);
@@ -251,7 +259,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// if(!allFactory.isLogin) $state.go('personal',{})
 
 	// 这里是一个 md5加密的例子
-	console.log(md5.createHash('444444').length)
+	// console.log(md5.createHash('444444').length)
 
 	console.log("basicSituationCtrl  p2");
 	$(".icon-xinyongqingkuang-copy").addClass("active")
@@ -420,6 +428,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			$scope.userAnswer.push(thisQues)
 		}
 		console.log($scope.userAnswer)
+		httpAnswer();//TODO:生产删掉
 	}
 
 	// 单选题选择事件
@@ -445,6 +454,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			$scope.userAnswer.push(thisQues)
 		}
 		console.log($scope.userAnswer)
+		httpAnswer();//TODO
 	}
 
 	// 多选题答题事件
@@ -490,8 +500,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 
 	// 请求题目
 	$scope.getPage = function () {
-		$http.post(allFactory.reqAdd, {
-				'userId': allFactory.userId,
+		$http.post(allFactory.ipAddress, {
+				'userId': "22",//allFactory.userId,
 				'paperModule': thisModule
 			})
 			.success(function (resp) {
@@ -508,17 +518,17 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	}
 
 	// 用户回答
-	$scope.httpAnswer = function () {
-		$http.post(allFactory.postAnswer, {
-				"userId": allFactory.userId,
+	httpAnswer = function () {
+		$http.post(allFactory.setAnwserAddress, {
+				"userId": "22",//allFactory.userId,
 				"paperModule": thisModule,
-				"anwser": $scope.userAnswer
+				"answer": $scope.userAnswer
 			})
 			.success(function (resp) {
 				if (resp.msg == 'success') {
 					console.log(resp.body)
 				} else {
-					swal('网络错误，请重试', 'error')
+					swal('网络错误，请重试','', 'error')
 				}
 			});
 	}
