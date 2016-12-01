@@ -278,8 +278,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			animation: false,
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
-			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>'
-				 + '<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
+			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
+				'<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -331,7 +331,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 							}
 						)
 					} else {
-						swal('错误', resp.errorText, 'error').then(function(){$scope.alertLogin()})
+						swal('错误', resp.errorText, 'error').then(function () {
+							$scope.alertLogin()
+						})
 					}
 				});
 
@@ -425,7 +427,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 									$scope.getPage()
 								} else {
 									swal.resetDefaults()
-									swal('错误', resp.errorText, 'error').then(function() {$scope.alertRegister()})
+									swal('错误', resp.errorText, 'error').then(function () {
+										$scope.alertRegister()
+									})
 								}
 							});
 
@@ -575,7 +579,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 					// console.log(sumWeight($scope.modOne))
 					$scope.setModTwoQue($scope.modTwo);
 				} else {
-					swal('网络错误，请重试', 'error')
+					swal('网络错误，请重试', resp.errorText, 'error')
 					$scope.alertLogin()
 				}
 			});
@@ -592,7 +596,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 				if (resp.msg) {
 					console.log(resp.body)
 				} else {
-					swal('网络错误，请重试', '', 'error')
+					swal('网络错误，请重试', resp.errorText, 'error')
 				}
 			});
 	}
