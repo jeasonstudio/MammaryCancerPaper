@@ -74,7 +74,8 @@
 {
     "teleNum":"",
     "password": "",  //md5
-    "roleName":""// doc 或者 patient
+    "roleName":"",// doctor 或者 patient
+    "isRemember": true//记住密码
 }
 {
     "msg": true,

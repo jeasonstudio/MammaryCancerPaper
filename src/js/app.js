@@ -51,7 +51,8 @@ var allFactory = {
 	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo", //测试用提交答案
 	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
 	"postAnswer": "", //生产提交答案
-	"isLogin": false
+	"isLogin": false,
+	"isRemember": true
 }
 
 // 用于全局答题函数
@@ -259,9 +260,6 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 // 2基本情况
 app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, $cookieStore, md5) {
 	// if(!allFactory.isLogin) $state.go('personal',{})
-	var a = $cookieStore.put("AngularJs", "xcccc");
-	var b = $cookieStore.get("AngularJs");
-	console.log(b)
 
 	// 这里是一个 md5加密的例子
 	// console.log(md5.createHash('444444').length)
@@ -307,7 +305,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			$http.post(allFactory.postLogin, {
 					"teleNum": allFactory.userId,
 					"password": allFactory.HASHPASSWD,
-					"roleName": "patient"
+					"roleName": "patient",
+					"isRemember": allFactory.isRemember
 				})
 				.success(function (resp) {
 					if (resp.msg) {
