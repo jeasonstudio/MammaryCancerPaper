@@ -45,7 +45,7 @@ var allFactory = {
 	"userId": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"postRegister": "", //测试用发送手机号，后台发短信
+	"postRegister": "http://192.168.1.100/BreastCancer/register", //测试用注册
 	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion", //测试用请求题目
 	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo", //测试用提交答案
 	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
@@ -392,7 +392,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 									allFactory.isLogin = true;
 									$scope.getPage()
 								} else {
-									swal('网络错误，请刷新重新注册', '', 'error')
+									swal.resetDefaults()
+									swal('网络错误', '请刷新重新注册', 'error')
 								}
 							});
 
