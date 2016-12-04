@@ -45,12 +45,11 @@ var allFactory = {
 	"userId": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"postRegister": "http://192.168.1.100/BreastCancer/register", //测试用注册
-	"postLogin": "http://192.168.1.100/BreastCancer/login", //测试用注册
-	"ipAddress": "http://192.168.1.100/BreastCancer/getQuestion", //测试用请求题目
-	"setAnwserAddress": "http://192.168.1.100/BreastCancer/getInsertInfo", //测试用提交答案
+	"postRegister": "http://120.27.49.154:8080/BreastCancer/register", //测试用注册
+	"postLogin": "http://120.27.49.154:8080/BreastCancer/login", //测试用注册
+	"ipAddress": "http://120.27.49.154:8080/BreastCancer/getQuestion", //测试用请求题目
+	"setAnwserAddress": "http://120.27.49.154:8080/BreastCancer/getInsertInfo", //测试用提交答案
 	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
-	"postAnswer": "", //生产提交答案
 	"isLogin": false,
 	"isRemember": true
 }
@@ -283,7 +282,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
-					console.log(value)
+					// console.log(value)
 					$teleNum = $('#teleNum').val();
 					if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
 						resolve()
