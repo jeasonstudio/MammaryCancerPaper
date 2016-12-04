@@ -601,14 +601,14 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	}
 
 	// 测试代码
-	// $scope.getPage()
+	$scope.getPage()
 
 	// 下面为生产代码
-	if (allFactory.isLogin) {
-		$scope.getPage()
-	} else {
-		$scope.alertLogin();
-	}
+	// if (allFactory.isLogin) {
+	// 	$scope.getPage()
+	// } else {
+	// 	$scope.alertLogin();
+	// }
 });
 
 // 3疾病与家族史
