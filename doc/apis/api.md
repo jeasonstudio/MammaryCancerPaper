@@ -65,6 +65,7 @@
 
 // 注册反馈
 {
+    "userId": "",
     "msg": "",
     "errorText": ""
 }
@@ -78,6 +79,7 @@
     "isRemember": true//记住密码
 }
 {
+    "userId": "",
     "msg": true,
     "errorText": ""
 }

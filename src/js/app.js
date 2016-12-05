@@ -43,13 +43,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 var allFactory = {
 	"userId": "",
+	"teleNum": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"postRegister": "http://120.27.49.154:8080/BreastCancer/register", //测试用注册
-	"postLogin": "http://120.27.49.154:8080/BreastCancer/login", //测试用注册
-	"ipAddress": "http://120.27.49.154:8080/BreastCancer/getQuestion", //测试用请求题目
-	"setAnwserAddress": "http://120.27.49.154:8080/BreastCancer/getInsertInfo", //测试用提交答案
-	"reqAdd": "http://120.27.49.154:8080/BreastCancer/getQuestion", //生产请求题目
+	"tagIP": "http://10.24.14.92",	//测试用 ip
+	// "tagIP": "http://120.27.49.154:8080",	//生产用 ip
+	"postRegister": "http://192.168.43.65/BreastCancer/register", //测试用注册
+	"postLogin": "http://192.168.43.65/BreastCancer/login", //测试用注册
+	"ipAddress": "http://192.168.43.65/BreastCancer/getQuestion", //测试用请求题目
+	"setAnwserAddress": "http://192.168.43.65/BreastCancer/getInsertInfo", //测试用提交答案
 	"isLogin": false,
 	"isRemember": true
 }
@@ -242,8 +244,8 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 	}]
 
 
-	$http.post(allFactory.reqAdd, {
-			'userId': allFactory.userId,
+	$http.post(allFactory.ipAddress, {
+			'teleNum': allFactory.teleNum,
 			'paperModule': '1'
 		})
 		.success(function (resp) {
@@ -277,16 +279,16 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			animation: false,
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
-			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-				'<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
+			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>',// +
+				// '<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
 					// console.log(value)
 					$teleNum = $('#teleNum').val();
-					if ($teleNum != '' && (value.length >= 6 && value.length <= 10)) {
+					if ((/^1(3|4|5|7|8)\d{9}$/.test($teleNum)) && (value.length >= 6 && value.length <= 10)) {
 						resolve()
-					} else if ($teleNum == '') {
+					} else if (!(/^1(3|4|5|7|8)\d{9}$/.test($teleNum))) {
 						reject('请正确填写手机号!')
 					} else {
 						reject('请正确填写密码!')
@@ -297,20 +299,21 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			confirmButtonText: '登录',
 			cancelButtonText: '去注册'
 		}).then(function (result) {
-			allFactory.userId = $('#teleNum').val();
+			allFactory.teleNum = $('#teleNum').val();
 			allFactory.password = result;
 			allFactory.HASHPASSWD = md5.createHash(result);
 
 			$http.post(allFactory.postLogin, {
-					"teleNum": allFactory.userId,
+					"teleNum": allFactory.teleNum,
 					"password": allFactory.HASHPASSWD,
 					"roleName": "patient",
 					"isRemember": allFactory.isRemember
 				})
 				.success(function (resp) {
 					if (resp.msg) {
-						console.log(resp.body)
+						// console.log(resp.body)
 						allFactory.isLogin = true;
+						allFactory.userId = resp.userId;
 						$scope.getPage();
 						swal.resetDefaults()
 						swal({
@@ -365,10 +368,10 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			confirmButtonText: '发送验证码',
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
-					if (value != '') { // TODO：验证手机号
-						allFactory.userId = value
+					if ((/^1(3|4|5|7|8)\d{9}$/.test(value))) { // TODO：验证手机号
+						allFactory.teleNum = value
 							// $http.post(allFactory.postRegister, {
-							// 		"userId": "13220101996",//allFactory.userId,
+							// 		"teleNum": "13220101996",//allFactory.teleNum,
 							// 		"password": thisModule,
 							// 		"answer": $scope.userAnswer
 							// 	})
@@ -414,13 +417,14 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 						allFactory.HASHPASSWD = md5.createHash(yourPassWord);
 
 						$http.post(allFactory.postRegister, {
-								"teleNum": allFactory.userId,
+								"teleNum": allFactory.teleNum,
 								"password": allFactory.HASHPASSWD,
 								"roleName": "patient"
 							})
 							.success(function (resp) {
 								if (resp.msg) {
-									console.log(resp.body)
+									// console.log(resp.body)
+									allFactory.userId = resp.userId;
 									resolve()
 									allFactory.isLogin = true;
 									$scope.getPage()
@@ -568,7 +572,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	// 请求题目
 	$scope.getPage = function () {
 		$http.post(allFactory.ipAddress, {
-				'userId': allFactory.userId,
+				'teleNum': allFactory.teleNum,
 				'paperModule': thisModule
 			})
 			.success(function (resp) {
@@ -601,14 +605,14 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 	}
 
 	// 测试代码
-	$scope.getPage()
+	// $scope.getPage()
 
 	// 下面为生产代码
-	// if (allFactory.isLogin) {
-	// 	$scope.getPage()
-	// } else {
-	// 	$scope.alertLogin();
-	// }
+	if (allFactory.isLogin) {
+		$scope.getPage()
+	} else {
+		$scope.alertLogin();
+	}
 });
 
 // 3疾病与家族史
