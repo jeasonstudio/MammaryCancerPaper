@@ -228,6 +228,10 @@ label {
     margin: 0;
 }
 
+.loginCheckbox {
+    display: inline;
+}
+
 .shortInput::-ms-input-placeholder {
     text-align: center;
 }

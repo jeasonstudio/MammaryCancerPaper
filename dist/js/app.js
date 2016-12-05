@@ -1,5 +1,5 @@
 //启动入口
-var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize"])
+var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize", "ngCookies"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.when("", "/personal");
@@ -46,14 +46,14 @@ var allFactory = {
 	"teleNum": "",
 	"password": "",
 	"HASHPASSWD": "",
-	"tagIP": "http://10.24.14.92",	//测试用 ip
+	"tagIP": "http://10.24.14.92", //测试用 ip
 	// "tagIP": "http://120.27.49.154:8080",	//生产用 ip
-	"postRegister": "http://192.168.43.65/BreastCancer/register", //测试用注册
-	"postLogin": "http://192.168.43.65/BreastCancer/login", //测试用注册
-	"ipAddress": "http://192.168.43.65/BreastCancer/getQuestion", //测试用请求题目
-	"setAnwserAddress": "http://192.168.43.65/BreastCancer/getInsertInfo", //测试用提交答案
+	"postRegister": "http://120.27.49.154:8080/BreastCancer/register", //测试用注册
+	"postLogin": "http://120.27.49.154:8080/BreastCancer/login", //测试用注册
+	"ipAddress": "http://120.27.49.154:8080/BreastCancer/getQuestion", //测试用请求题目
+	"setAnwserAddress": "http://120.27.49.154:8080/BreastCancer/getInsertInfo", //测试用提交答案
 	"isLogin": false,
-	"isRemember": true
+	"isRemember": false
 }
 
 // 用于全局答题函数
@@ -259,7 +259,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 });
 
 // 2基本情况
-app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state, md5) {
+app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	// if(!allFactory.isLogin) $state.go('personal',{})
 
 	// 这里是一个 md5加密的例子
@@ -279,8 +279,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 			animation: false,
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
-			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>',// +
-				// '<label class="weui-cell weui-check__label" for="s11"><div class="weui-cell__hd"><input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked"><i class="weui-icon-checked"></i></div><div class="weui-cell__bd"><p>standard is dealt for u.</p></div></label>',
+			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
+			'<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>',
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -332,6 +332,27 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 								}
 							}
 						)
+
+						// putcookiecookie，自动登录
+						if (allFactory.isRemember) {
+							$cookieStore.put("user", {
+								userId: allFactory.userId,
+								HASHPASSWD: allFactory.HASHPASSWD
+							}, {
+								expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
+							});
+							// $cookies.put("userId", allFactory.userId, {
+							// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
+							// });
+							// $cookies.put("HASHPASSWD", allFactory.HASHPASSWD, {
+							// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
+							// });
+							// $cookieStore.put("userId", allFactory.userId);
+							// $cookieStore.put("HASHPASSWD", allFactory.HASHPASSWD);
+						} 
+						// else {
+						// 	$scope.cookUser = {};
+						// }
 					} else {
 						swal('错误', resp.errorText, 'error').then(function () {
 							$scope.alertLogin()
@@ -606,10 +627,18 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $state
 
 	// 测试代码
 	// $scope.getPage()
+	// $scope.alertLogin();
+
+	// 拿到 cookie
+	$scope.cookUser = $cookieStore.get("user");
+	console.log($scope.cookUser)
+	// $cookieStore.remove("user");
 
 	// 下面为生产代码
-	if (allFactory.isLogin) {
+	if (allFactory.isLogin || $scope.cookUser && ($scope.cookUser.userId && $scope.cookUser.HASHPASSWD)) {
 		$scope.getPage()
+		allFactory.userId = $scope.cookUser.userId;
+		allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	} else {
 		$scope.alertLogin();
 	}
