@@ -2,7 +2,7 @@
 var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize", "ngCookies"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.when("", "/basicSituation");// TODO: change to personal
+	$urlRouterProvider.when("", "/basicSituation"); // TODO: change to personal
 	$stateProvider
 		.state('personal', {
 			url: "/personal",
@@ -255,7 +255,8 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 				// console.log(sumWeight($scope.modOne))
 				$scope.setModOneQue($scope.modOne);
 			}
-		});
+		})
+
 });
 
 // 2基本情况
@@ -280,7 +281,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
 			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-			'<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>',
+				'<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>',
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -349,7 +350,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 							// });
 							// $cookieStore.put("userId", allFactory.userId);
 							// $cookieStore.put("HASHPASSWD", allFactory.HASHPASSWD);
-						} 
+						}
 						// else {
 						// 	$scope.cookUser = {};
 						// }
@@ -607,6 +608,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 					swal('网络错误，请重试', resp.errorText, 'error')
 					$scope.alertLogin()
 				}
+			})
+			.error(function (data, header, config, status) {
+				swal(data + header , config + status , 'error')
 			});
 	}
 
@@ -623,6 +627,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
 				}
+			})
+			.error(function (data, header, config, status) {
+				swal(data + header , config + status , 'error')
 			});
 	}
 
@@ -631,8 +638,8 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	// $scope.alertLogin();
 	if (allFactory.isLogin) {
 		$scope.getPage()
-		// allFactory.userId = $scope.cookUser.userId;
-		// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
+			// allFactory.userId = $scope.cookUser.userId;
+			// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	} else {
 		$scope.alertLogin();
 	}
@@ -640,7 +647,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	// 拿到 cookie
 	$scope.cookUser = $cookieStore.get("user");
 	console.log($scope.cookUser)
-	// $cookieStore.remove("user");
+		// $cookieStore.remove("user");
 
 	// 下面为生产代码
 	// if (allFactory.isLogin || $scope.cookUser && ($scope.cookUser.userId && $scope.cookUser.HASHPASSWD)) {
