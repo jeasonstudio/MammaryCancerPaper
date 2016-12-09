@@ -49,7 +49,7 @@ var allFactory = {
 	"tagIP": "http://10.24.14.92", //测试用 ip
 	// "tagIP": "http://120.27.49.154:8080",	//生产用 ip
 	"postRegister": "http://120.27.49.154:8080/BreastCancer/register", //测试用注册
-	"postLogin": "http://192.168.43.65/BreastCancer/login", //测试用登录
+	"postLogin": "http://120.27.49.154:8080/BreastCancer/login", //测试用登录
 	"ipAddress": "http://120.27.49.154:8080/BreastCancer/getQuestion", //测试用请求题目
 	"setAnwserAddress": "http://120.27.49.154:8080/BreastCancer/getInsertInfo", //测试用提交答案
 	"isLogin": false,
