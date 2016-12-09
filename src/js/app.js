@@ -49,7 +49,7 @@ var allFactory = {
 	"tagIP": "http://10.24.14.92", //测试用 ip
 	// "tagIP": "http://120.27.49.154:8080",	//生产用 ip
 	"postRegister": "http://120.27.49.154:8080/BreastCancer/register", //测试用注册
-	"postLogin": "http://120.27.49.154:8080/BreastCancer/login", //测试用注册
+	"postLogin": "http://192.168.43.65/BreastCancer/login", //测试用登录
 	"ipAddress": "http://120.27.49.154:8080/BreastCancer/getQuestion", //测试用请求题目
 	"setAnwserAddress": "http://120.27.49.154:8080/BreastCancer/getInsertInfo", //测试用提交答案
 	"isLogin": false,
@@ -416,6 +416,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 		}, {
 			title: '密码',
 			input: 'password',
+			confirmButtonText: '注册',
 			inputPlaceholder: '密码(6-10位)',
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -628,6 +629,13 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	// 测试代码
 	// $scope.getPage()
 	// $scope.alertLogin();
+	if (allFactory.isLogin) {
+		$scope.getPage()
+		// allFactory.userId = $scope.cookUser.userId;
+		// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
+	} else {
+		$scope.alertLogin();
+	}
 
 	// 拿到 cookie
 	$scope.cookUser = $cookieStore.get("user");
@@ -635,13 +643,13 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	// $cookieStore.remove("user");
 
 	// 下面为生产代码
-	if (allFactory.isLogin || $scope.cookUser && ($scope.cookUser.userId && $scope.cookUser.HASHPASSWD)) {
-		$scope.getPage()
-		allFactory.userId = $scope.cookUser.userId;
-		allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
-	} else {
-		$scope.alertLogin();
-	}
+	// if (allFactory.isLogin || $scope.cookUser && ($scope.cookUser.userId && $scope.cookUser.HASHPASSWD)) {
+	// 	$scope.getPage()
+	// 	allFactory.userId = $scope.cookUser.userId;
+	// 	allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
+	// } else {
+	// 	$scope.alertLogin();
+	// }
 });
 
 // 3疾病与家族史
