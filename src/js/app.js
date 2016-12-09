@@ -417,7 +417,6 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 		}, {
 			title: '密码',
 			input: 'password',
-			confirmButtonText: '注册',
 			inputPlaceholder: '密码(6-10位)',
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -432,6 +431,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 		}, {
 			title: '重复输入密码',
 			input: 'password',
+			confirmButtonText: '注册',
 			inputPlaceholder: '重复输入密码(6-10位)',
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -496,7 +496,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 
 
 	// 当前模块号
-	var thisModule = '2';
+	var thisModule = 2;
 
 	// 答案数组
 	$scope.userAnswer = []
@@ -610,7 +610,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 				}
 			})
 			.error(function (data, header, config, status) {
-				swal(data + header , config + status , 'error')
+				swal( '网络错误', '错误信息：' + header , 'error')
 			});
 	}
 
@@ -629,7 +629,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 				}
 			})
 			.error(function (data, header, config, status) {
-				swal(data + header , config + status , 'error')
+				swal( '网络错误', '错误信息：' + header , 'error')
 			});
 	}
 
