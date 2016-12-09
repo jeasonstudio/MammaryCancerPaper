@@ -2,41 +2,41 @@
 var app = angular.module('myApp', ["ngRoute", "ui.router", "angular-md5", "ngSanitize", "ngCookies"])
 
 app.config(function ($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.when("", "/personal");
+	$urlRouterProvider.when("", "/basicSituation");// TODO: change to personal
 	$stateProvider
 		.state('personal', {
 			url: "/personal",
-			templateUrl: "../../html/personal.html",
+			templateUrl: "./html/personal.html",
 			controller: "personalCtrl"
 		})
 		.state('basicSituation', {
 			url: "/basicSituation",
-			templateUrl: "../../html/basicSituation.html",
+			templateUrl: "./html/basicSituation.html",
 			controller: "basicSituationCtrl"
 		})
 		.state('medicalHistory', {
 			url: "/medicalHistory",
-			templateUrl: "../../html/medicalHistory.html",
+			templateUrl: "./html/medicalHistory.html",
 			controller: "medicalHistoryCtrl"
 		})
 		.state('habitsCustoms', {
 			url: "/habitsCustoms",
-			templateUrl: "../../html/habitsCustoms.html",
+			templateUrl: "./html/habitsCustoms.html",
 			controller: "habitsCustomsCtrl"
 		})
 		.state('medication', {
 			url: "/medication",
-			templateUrl: "../../html/medication.html",
+			templateUrl: "./html/medication.html",
 			controller: "medicationCtrl"
 		})
 		.state('breast', {
 			url: "/breast",
-			templateUrl: "../../html/breast.html",
+			templateUrl: "./html/breast.html",
 			controller: "breastCtrl"
 		})
 		.state('login', {
 			url: "/login",
-			templateUrl: "../../html/login.html",
+			templateUrl: "./html/login.html",
 			controller: "loginCtrl"
 		})
 });
