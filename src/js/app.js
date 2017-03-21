@@ -56,6 +56,39 @@ var allFactory = {
 	"isRemember": false
 }
 
+// var module = angular.module('angular-bind-html-compile', []);
+// module.directive('bindHtmlCompile', ['$compile',
+// 	function ($compile) {
+// 		return {
+// 			restrict: 'A',
+// 			link: function (scope, element, attrs) {
+// 				scope.$watch(function () {
+// 						return scope.$eval(attrs.bindHtmlCompile);
+// 					},
+// 					function (value) {
+// 						element.html(value);
+// 						$compile(element.contents())(scope);
+// 					});
+// 			}
+// 		};
+// 	}
+// ]);
+// var module = angular.module('angularBindHtmlCompile', []);
+
+app.directive('bindHtmlCompile', ['$compile', function ($compile) {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			scope.$watch(function () {
+				return scope.$eval(attrs.bindHtmlCompile);
+			}, function (value) {
+				element.html(value);
+				$compile(element.contents())(scope);
+			});
+		}
+	};
+}]);
+
 // 用于全局答题函数
 var httpAnswer;
 
@@ -150,7 +183,7 @@ var takePagesNum = function (tagArr) {
 }
 
 // 1个人信息
-app.controller('personalCtrl', function ($scope, $rootScope, $http) {
+app.controller('personalCtrl', function ($scope, $rootScope, $http ) {
 
 	// 进入页面一些初始化配置
 	console.log("personalCtrl  p1");
@@ -165,7 +198,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http) {
 
 
 
-	$scope.aa = '足月妊娠次数<input class="insertPut shortInput" type="text" placeholder="请输入">次'
+	$scope.aa = '足月妊娠次数<input class="insertPut shortInput" type="text" ng-blur="alert(this)" placeholder="请输入">次'
 		// $scope.aa = '您在奥斯卡级等哈看书的啊啊？<input class="insertPut longInput" type="text" placeholder="请输入">'
 	$scope.testDou = [{
 		"questionAnswerType": 1,
@@ -610,7 +643,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 				}
 			})
 			.error(function (data, header, config, status) {
-				swal( '网络错误', '错误信息：' + header , 'error')
+				swal('网络错误', '错误信息：' + header, 'error')
 			});
 	}
 
@@ -629,7 +662,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 				}
 			})
 			.error(function (data, header, config, status) {
-				swal( '网络错误', '错误信息：' + header , 'error')
+				swal('网络错误', '错误信息：' + header, 'error')
 			});
 	}
 
