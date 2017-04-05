@@ -246,3 +246,9 @@ label {
     padding: 20px 0 30px 0;
     color: #D9D9D9;
 }
+
+input,
+textarea {
+    border: 0; /* 方法1 */
+    -webkit-appearance: none!important; /* 方法2 */
+}

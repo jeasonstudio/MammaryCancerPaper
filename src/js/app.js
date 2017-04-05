@@ -536,6 +536,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 
 	// 填空答题
 	$scope.fillBlank = function (uuid, value) {
+		alert("s")
 		var thisQues = {
 			"UUID": uuid,
 			"answerId": [value]
