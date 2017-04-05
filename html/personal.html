@@ -1,89 +1,69 @@
-<div class="swiper-container swiper-container-personal">
-	<div class="swiper-pagination">
-	</div>
+<div class="swiper-container swiper-container-basicSituation">
+	<div class="swiper-pagination"></div>
 	<div class="swiper-wrapper">
-		<div class="swiper-slide" data-hash="slide1">
-			<div class="slide-inner">
-				<div ng-repeat="item in testDou">
-					<div class="weui-cells__title"><span ng-bind="item.questionContent"></span><span class="chooseInfo">(多选)</span></div>
+		<div class="swiper-slide" ng-repeat="pages in setModOne" repeat-finish>
+			<div ng-repeat="ques in pages">
+				<!--是多选-->
+				<div ng-if="ques.questionAnswerType == 2 || ques.questionAnswerType == 7" id="{{ques.UUID}}">
+					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span><span class="chooseInfo">(多选)</span></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="checkbox + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
+						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
+										ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
-							<input type="checkbox" class="weui-check" name="checkbox + {{$parent.$index}} + {{$index}}" id="checkbox + {{$parent.$index}} + {{$index}}">
+							<input type="checkbox" class="weui-check" ng-click="chooseDou(ques.UUID,itemOption.anwserId)" name="checkbox-{{itemOption.anwserId}}" id="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
+							<h5 ng-bind-html="itemOption.anwserContent"></h5>
 						</div>
 					</label>
 					</div>
 				</div>
-				<div ng-repeat="item in testSin">
-					<div class="weui-cells__title"><span ng-bind="item.questionContent"></span><span class="chooseInfo">(单选)</span></div>
+				<!--是单选-->
+				<div ng-if="ques.questionAnswerType == 1 || ques.questionAnswerType == 4 ||ques.questionAnswerType == 5" id="{{ques.UUID}}">
+					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span></div>
 					<div class="weui-cells weui-cells_checkbox">
-						<label class="weui-cell weui-check__label" for="radio + {{$parent.$index}} + {{$index}}" ng-repeat="itemOption in item.options">
+						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
+										ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
-							<input type="radio" class="weui-check" name="radio + {{$parent.$index}}" id="radio + {{$parent.$index}} + {{$index}}">
+							<input type="radio" class="weui-check" ng-click="chooseSin(ques.UUID,itemOption.anwserId)" name="radio-{{ques.UUID}}" id="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5 ng-bind="itemOption.anwserContent"></h5>
+							<h5 ng-bind-html="itemOption.anwserContent | to_trusted"></h5>
 						</div>
 					</label>
 					</div>
 				</div>
-				<div>
+				<!--是填空-->
+				<div ng-if="ques.questionAnswerType == 3 || ques.questionAnswerType == 6" id="{{ques.UUID}}">
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
-							<div class="weui-cell__hd">
-								<label class="weui-label" bind-html-compile="aa"></label>
-							</div>
-							<!--<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="请输入姓名">
-							</div>-->
-						</div>
-						<!--<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">qq</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入qq号">
+							<div class="weui-cell__hd fillInput_name">
+								<label class="weui-label" ng-bind-html="ques.questionContent | to_trusted"></label>
 							</div>
 						</div>
 						<div class="weui-cell">
-							<div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="date" value="">
+							<div class="weui-cell__bd fillInput_blank">
+								<!--<input class="weui-input" type="text" ng-model="yourInput" placeholder="请输入" ng-blur="fillBlank(ques.UUID,yourInput)">-->
 							</div>
-						</div>-->
+						</div>
 					</div>
 				</div>
-				<!--<div>
+				<!--是标题-->
+				<div ng-if="ques.questionAnswerType == 0">
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
-							<div class="weui-cell__hd">
-								<label class="weui-label">姓名</label>
-							</div>
-						</div>
-						<div class="weui-cell">
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="text" placeholder="请输入姓名">
-							</div>
-						</div>
-						<div class="weui-cell">
-							<div class="weui-cell__hd"><label class="weui-label">qq</label></div>
-							<div class="weui-cell__bd">
-								<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入qq号">
+							<div class="weui-cell__hd fillInput_name">
+								<label class="weui-label innerTitle" ng-bind-html="ques.questionContent | to_trusted"></label>
 							</div>
 						</div>
 					</div>
-				</div>-->
+				</div>
 			</div>
-			<!--<change-page></change-page>-->
-		</div>
-		<div class="swiper-slide" data-hash="slide + {{$index +1}}" ng-repeat="itemPage in modOne">Slide 2
-			<change-page></change-page>
-		</div>
-		<div class="swiper-slide">Slide 6
-			<!--<next-mode info-mode="basicSituation"></next-mode>-->
+			<div class="infoNext">
+				<span>———— 请左划继续答题 ————</span>
+			</div>
 		</div>
 	</div>
 </div>
