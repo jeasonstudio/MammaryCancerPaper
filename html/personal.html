@@ -61,8 +61,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="infoNext">
+			<div class="infoNext" ng-if="$index != setModOne.length - 1">
 				<span>———— 请左划继续答题 ————</span>
+			</div>
+			<div class="netxPageBtn" ng-if="$index == setModOne.length - 1">
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="nextMode()">下一组</button>
 			</div>
 		</div>
 	</div>

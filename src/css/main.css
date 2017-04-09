@@ -247,8 +247,12 @@ label {
     color: #D9D9D9;
 }
 
-input,
+/*input,
 textarea {
-    border: 0; /* 方法1 */
-    -webkit-appearance: none!important; /* 方法2 */
+    border: 0;
+    -webkit-appearance: none!important;
+}*/
+
+.netxPageBtn {
+    margin: 20px 30px 0 30px;
 }

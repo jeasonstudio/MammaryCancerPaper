@@ -53,7 +53,7 @@ var allFactory = {
 	"ipAddress": "http://120.27.49.154/BreastCancer/getQuestion", //测试用请求题目
 	"setAnwserAddress": "http://120.27.49.154/BreastCancer/getInsertInfo", //测试用提交答案
 	"isLogin": false,
-	"isRemember": false
+	"isRemember": true
 }
 
 // var module = angular.module('angular-bind-html-compile', []);
@@ -132,8 +132,9 @@ function makeSwiper() {
 
 // 计算权重的函数
 var sumWeight = function (tagArr) {
+	debugger
 	var tagArrResult = [];
-	for (var secQue in tagArr) {
+	for (var secQue = 0; secQue < tagArr.length; secQue++) {
 		if (tagArr[secQue].options && (tagArr[secQue].questionAnswerType == '0' || tagArr[secQue].questionAnswerType == '1' || tagArr[secQue].questionAnswerType == '2' || tagArr[secQue].questionAnswerType == '4' || tagArr[secQue].questionAnswerType == '5' || tagArr[secQue].questionAnswerType == '7')) {
 			tagArrResult[secQue] = tagArr[secQue].options.length + 1;
 		} else if (tagArr[secQue].questionAnswerType == '3' || tagArr[secQue].questionAnswerType == '6') {
@@ -148,6 +149,7 @@ var sumWeight = function (tagArr) {
 
 // 计算切割位置并切割
 var splitWeight = function (tagArr, origionArr) {
+	debugger
 	var i = 0,
 		sum = 0,
 		tagArrResult = [];
@@ -159,6 +161,9 @@ var splitWeight = function (tagArr, origionArr) {
 			tagArrResult[i] = item;
 			i += 1;
 		}
+	}
+	if (tagArrResult.length == 0) {
+		return [origionArr]
 	}
 	console.log(tagArrResult)
 
@@ -205,8 +210,9 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 			animation: false,
 			input: 'password',
 			inputPlaceholder: '密码(6-10位)',
-			html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-				'<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>',
+			html: '<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>' +
+				'<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>',
+
 
 			inputValidator: function (value) {
 				return new Promise(function (resolve, reject) {
@@ -229,6 +235,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 			allFactory.password = result;
 			allFactory.HASHPASSWD = md5.createHash(result);
 
+			debugger
 			$http.post(allFactory.postLogin, {
 					"teleNum": allFactory.teleNum,
 					"password": allFactory.HASHPASSWD,
@@ -241,6 +248,16 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 						allFactory.isLogin = true;
 						allFactory.userId = resp.userId;
 						$scope.getPage();
+						// putcookiecookie，自动登录
+						if (allFactory.isRemember) {
+							debugger
+							window.localStorage.userInfo = JSON.stringify({
+								teleNum: allFactory.teleNum,
+								password: allFactory.HASHPASSWD
+							})
+						} else {
+							window.localStorage.clear()
+						}
 						swal.resetDefaults()
 						swal({
 							title: '登录成功',
@@ -259,26 +276,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 							}
 						)
 
-						// putcookiecookie，自动登录
-						if (allFactory.isRemember) {
-							$cookieStore.put("user", {
-								userId: allFactory.userId,
-								HASHPASSWD: allFactory.HASHPASSWD
-							}, {
-								expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-							});
-							// $cookies.put("userId", allFactory.userId, {
-							// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-							// });
-							// $cookies.put("HASHPASSWD", allFactory.HASHPASSWD, {
-							// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-							// });
-							// $cookieStore.put("userId", allFactory.userId);
-							// $cookieStore.put("HASHPASSWD", allFactory.HASHPASSWD);
-						}
-						// else {
-						// 	$scope.cookUser = {};
-						// }
+
 					} else {
 						swal('错误', resp.errorText, 'error').then(function () {
 							$scope.alertLogin()
@@ -559,6 +557,10 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 			});
 	}
 
+	$scope.nextMode = function () {
+		$state.go('basicSituation', {})
+	}
+
 	// 测试代码
 	// $scope.getPage()
 	// $scope.alertLogin();
@@ -570,16 +572,15 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 	// 	$scope.alertLogin();
 	// }
 
-	// 拿到 cookie
-	$scope.cookUser = $cookieStore.get("user");
-	console.log($scope.cookUser)
-	// $cookieStore.remove("user");
 
 	// 下面为生产代码
-	if (allFactory.isLogin || $scope.cookUser && ($scope.cookUser.userId && $scope.cookUser.HASHPASSWD)) {
+	if (allFactory.isLogin || window.localStorage.userInfo) {
+		allFactory.teleNum = JSON.parse(window.localStorage.userInfo).teleNum
+		allFactory.HASHPASSWD = JSON.parse(window.localStorage.userInfo).HASHPASSWD
+		swal('已登录', '账号：' + allFactory.teleNum, 'success')
 		$scope.getPage()
-		allFactory.userId = $scope.cookUser.userId;
-		allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
+		// allFactory.userId = $scope.cookUser.userId;
+		// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	} else {
 		$scope.alertLogin();
 	}
@@ -595,232 +596,6 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	console.log("basicSituationCtrl  p2");
 	$(".icon-xinyongqingkuang-copy").addClass("active")
 	$(".swiper-slide").height($(window).height() - 50);
-
-	// 登录弹窗
-	// $scope.alertLogin = function () {
-	// 	swal({
-	// 		title: '登录',
-	// 		// type: 'warning',
-	// 		allowOutsideClick: false,
-	// 		showCloseButton: false,
-	// 		animation: false,
-	// 		input: 'password',
-	// 		inputPlaceholder: '密码(6-10位)',
-	// 		html: '<input class="swal2-input" id="teleNum" placeholder="手机号/用户名" type="text" style="display: block;" autofocus>' +
-	// 			'<div class="weui-cell__hd"><input type="checkbox" class="loginCheckbox" name="checkbox1" id="loginCheckbox" checked="checked"><span>记住密码自动登录</span></div>',
-
-	// 		inputValidator: function (value) {
-	// 			return new Promise(function (resolve, reject) {
-	// 				// console.log(value)
-	// 				$teleNum = $('#teleNum').val();
-	// 				if ((/^1(3|4|5|7|8)\d{9}$/.test($teleNum)) && (value.length >= 6 && value.length <= 10)) {
-	// 					resolve()
-	// 				} else if (!(/^1(3|4|5|7|8)\d{9}$/.test($teleNum))) {
-	// 					reject('请正确填写手机号!')
-	// 				} else {
-	// 					reject('请正确填写密码!')
-	// 				}
-	// 			})
-	// 		},
-	// 		showCancelButton: true,
-	// 		confirmButtonText: '登录',
-	// 		cancelButtonText: '去注册'
-	// 	}).then(function (result) {
-	// 		allFactory.teleNum = $('#teleNum').val();
-	// 		allFactory.password = result;
-	// 		allFactory.HASHPASSWD = md5.createHash(result);
-
-	// 		$http.post(allFactory.postLogin, {
-	// 				"teleNum": allFactory.teleNum,
-	// 				"password": allFactory.HASHPASSWD,
-	// 				"roleName": "patient",
-	// 				"isRemember": allFactory.isRemember
-	// 			})
-	// 			.success(function (resp) {
-	// 				if (resp.msg) {
-	// 					// console.log(resp.body)
-	// 					allFactory.isLogin = true;
-	// 					allFactory.userId = resp.userId;
-	// 					$scope.getPage();
-	// 					swal.resetDefaults()
-	// 					swal({
-	// 						title: '登录成功',
-	// 						type: 'success',
-	// 						showCancelButton: false,
-	// 						showConfirmButton: false,
-	// 						text: '请开始填写问卷，2秒后关闭',
-	// 						timer: 2000
-	// 					}).then(
-	// 						function () {},
-	// 						// handling the promise rejection
-	// 						function (dismiss) {
-	// 							if (dismiss === 'timer') {
-	// 								console.log('I was closed by the timer')
-	// 							}
-	// 						}
-	// 					)
-
-	// 					// putcookiecookie，自动登录
-	// 					if (allFactory.isRemember) {
-	// 						$cookieStore.put("user", {
-	// 							userId: allFactory.userId,
-	// 							HASHPASSWD: allFactory.HASHPASSWD
-	// 						}, {
-	// 							expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-	// 						});
-	// 						// $cookies.put("userId", allFactory.userId, {
-	// 						// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-	// 						// });
-	// 						// $cookies.put("HASHPASSWD", allFactory.HASHPASSWD, {
-	// 						// 	expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60))
-	// 						// });
-	// 						// $cookieStore.put("userId", allFactory.userId);
-	// 						// $cookieStore.put("HASHPASSWD", allFactory.HASHPASSWD);
-	// 					}
-	// 					// else {
-	// 					// 	$scope.cookUser = {};
-	// 					// }
-	// 				} else {
-	// 					swal('错误', resp.errorText, 'error').then(function () {
-	// 						$scope.alertLogin()
-	// 					})
-	// 				}
-	// 			});
-
-	// 	}, function (dismiss) {
-	// 		if (dismiss === 'cancel') {
-	// 			$scope.alertRegister()
-	// 		}
-	// 	}).catch(swal.noop)
-	// }
-
-	// // 注册弹窗
-	// $scope.alertRegister = function () {
-	// 	swal.setDefaults({
-	// 		input: 'text',
-	// 		confirmButtonText: '下一步&rarr;',
-	// 		allowOutsideClick: false,
-	// 		showCloseButton: false,
-	// 		showCancelButton: true,
-	// 		animation: false,
-	// 		cancelButtonText: '去登录',
-	// 		progressSteps: ['1', '2', '3', '4']
-	// 	})
-
-	// 	var yourPassWord;
-
-	// 	var steps = [{
-	// 		title: '手机号码',
-	// 		input: 'text',
-	// 		inputPlaceholder: '请输入您的真实手机号码',
-	// 		confirmButtonText: '发送验证码',
-	// 		inputValidator: function (value) {
-	// 			return new Promise(function (resolve, reject) {
-	// 				if ((/^1(3|4|5|7|8)\d{9}$/.test(value))) { // TODO：验证手机号
-	// 					allFactory.teleNum = value
-	// 					// $http.post(allFactory.postRegister, {
-	// 					// 		"teleNum": "13220101996",//allFactory.teleNum,
-	// 					// 		"password": thisModule,
-	// 					// 		"answer": $scope.userAnswer
-	// 					// 	})
-	// 					// 	.success(function (resp) {
-	// 					// 		if (resp.msg) {
-	// 					// 			console.log(resp.body)
-	// 					// 		} else {
-	// 					// 			swal('网络错误，请重试', '', 'error')
-	// 					// 		}
-	// 					// 	});
-	// 					resolve()
-	// 				} else {
-	// 					reject('请输入正确的手机号')
-	// 				}
-	// 			})
-	// 		}
-	// 	}, {
-	// 		title: '验证码',
-	// 		input: 'text',
-	// 		inputPlaceholder: '请填入刚刚收到的验证码'
-	// 	}, {
-	// 		title: '密码',
-	// 		input: 'password',
-	// 		inputPlaceholder: '密码(6-10位)',
-	// 		inputValidator: function (value) {
-	// 			return new Promise(function (resolve, reject) {
-	// 				if (value.length >= 6 && value.length <= 10) {
-	// 					yourPassWord = value;
-	// 					resolve()
-	// 				} else {
-	// 					reject('请按格式正确输入密码')
-	// 				}
-	// 			})
-	// 		}
-	// 	}, {
-	// 		title: '重复输入密码',
-	// 		input: 'password',
-	// 		confirmButtonText: '注册',
-	// 		inputPlaceholder: '重复输入密码(6-10位)',
-	// 		inputValidator: function (value) {
-	// 			return new Promise(function (resolve, reject) {
-	// 				if (value.length >= 6 && value.length <= 10 && value == yourPassWord) {
-	// 					allFactory.password = yourPassWord;
-	// 					allFactory.HASHPASSWD = md5.createHash(yourPassWord);
-
-	// 					$http.post(allFactory.postRegister, {
-	// 							"teleNum": allFactory.teleNum,
-	// 							"password": allFactory.HASHPASSWD,
-	// 							"roleName": "patient"
-	// 						})
-	// 						.success(function (resp) {
-	// 							if (resp.msg) {
-	// 								// console.log(resp.body)
-	// 								allFactory.userId = resp.userId;
-	// 								resolve()
-	// 								allFactory.isLogin = true;
-	// 								$scope.getPage()
-	// 							} else {
-	// 								swal.resetDefaults()
-	// 								swal('错误', resp.errorText, 'error').then(function () {
-	// 									$scope.alertRegister()
-	// 								})
-	// 							}
-	// 						});
-
-	// 				} else if (value != yourPassWord) {
-	// 					reject('密码输入不符')
-	// 				} else {
-	// 					reject('请按格式正确输入密码')
-	// 				}
-	// 			})
-	// 		}
-	// 	}]
-
-	// 	swal.queue(steps).then(function (result) {
-	// 		swal.resetDefaults()
-	// 		swal({
-	// 			title: '注册成功',
-	// 			type: 'success',
-	// 			showCancelButton: false,
-	// 			showConfirmButton: false,
-	// 			text: '请开始填写问卷，2秒后关闭',
-	// 			timer: 2000
-	// 		}).then(
-	// 			function () {},
-	// 			// handling the promise rejection
-	// 			function (dismiss) {
-	// 				if (dismiss === 'timer') {
-	// 					console.log('I was closed by the timer')
-	// 				}
-	// 			}
-	// 		)
-	// 	}, function (dismiss) {
-	// 		if (dismiss === 'cancel') {
-	// 			swal.resetDefaults()
-	// 			$scope.alertLogin()
-	// 		}
-	// 	})
-	// }
-
-
 	// 当前模块号
 	var thisModule = 2;
 
@@ -960,6 +735,12 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 			});
 	}
 
+	$scope.nextMode = function () {
+		$state.go('medicalHistory', {})
+	}
+
+	$scope.getPage()
+
 	// 测试代码
 	// $scope.getPage()
 	// $scope.alertLogin();
@@ -987,35 +768,615 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 });
 
 // 3疾病与家族史
-app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http) {
+app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("medicalHistoryCtrl  p3");
 	$(".icon-bingli").addClass("active")
 	$rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
+
+	// 当前模块号
+	var thisModule = 3;
+
+	// 答案数组
+	$scope.userAnswer = []
+
+	// 填空答题
+	$scope.fillBlank = function (uuid, value) {
+		alert("s")
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [value]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [value];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 单选题选择事件
+	$scope.chooseSin = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [option];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 多选题答题事件
+	$scope.chooseDou = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					var judgeOption = false;
+					_.each(b.answerId, function (ans, k) {
+						if (ans == option) {
+							b.answerId.splice(k, 1)
+							// 若已选过，则删除这个 option
+							judgeOption = true;
+						}
+					})
+					if (!judgeOption) {
+						b.answerId.push(option)
+					}
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 渲染题目
+	$scope.setModThreeQue = function (tagArr) {
+		console.log(tagArr)
+		$scope.setModThree = tagArr;
+	}
+
+	// 请求题目
+	$scope.getPage = function () {
+		$http.post(allFactory.ipAddress, {
+				'teleNum': allFactory.teleNum,
+				'paperModule': thisModule
+			})
+			.success(function (resp) {
+				console.log(resp)
+				if (resp.msg) {
+					$scope.modThree = sumWeight(_.flatten(resp.body.questions));
+					// console.log(sumWeight($scope.modOne))
+					$scope.setModThreeQue($scope.modThree);
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+					$scope.alertLogin()
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	// 用户回答
+	httpAnswer = function () {
+		$http.post(allFactory.setAnwserAddress, {
+				"userId": allFactory.userId,
+				"paperModule": thisModule,
+				"answer": $scope.userAnswer
+			})
+			.success(function (resp) {
+				if (resp.msg) {
+					console.log(resp.body)
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	$scope.nextMode = function () {
+		$state.go('habitsCustoms', {})
+	}
+
+	$scope.getPage()
 });
 
 // 4生活习惯
-app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http) {
+app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("habitsCustomsCtrl  p4");
 	$(".icon-shenghuo").addClass("active")
 	$rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
+
+	// 当前模块号
+	var thisModule = 4;
+
+	// 答案数组
+	$scope.userAnswer = []
+
+	// 填空答题
+	$scope.fillBlank = function (uuid, value) {
+		alert("s")
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [value]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [value];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 单选题选择事件
+	$scope.chooseSin = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [option];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 多选题答题事件
+	$scope.chooseDou = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					var judgeOption = false;
+					_.each(b.answerId, function (ans, k) {
+						if (ans == option) {
+							b.answerId.splice(k, 1)
+							// 若已选过，则删除这个 option
+							judgeOption = true;
+						}
+					})
+					if (!judgeOption) {
+						b.answerId.push(option)
+					}
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 渲染题目
+	$scope.setModFourQue = function (tagArr) {
+		console.log(tagArr)
+		$scope.setModFour = tagArr;
+	}
+
+	// 请求题目
+	$scope.getPage = function () {
+		$http.post(allFactory.ipAddress, {
+				'teleNum': allFactory.teleNum,
+				'paperModule': thisModule
+			})
+			.success(function (resp) {
+				console.log(resp)
+				if (resp.msg) {
+					$scope.modFour = sumWeight(_.flatten(resp.body.questions));
+					// console.log(sumWeight($scope.modOne))
+					$scope.setModFourQue($scope.modFour);
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+					$scope.alertLogin()
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	// 用户回答
+	httpAnswer = function () {
+		$http.post(allFactory.setAnwserAddress, {
+				"userId": allFactory.userId,
+				"paperModule": thisModule,
+				"answer": $scope.userAnswer
+			})
+			.success(function (resp) {
+				if (resp.msg) {
+					console.log(resp.body)
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	$scope.nextMode = function () {
+		$state.go('medication', {})
+	}
+
+	$scope.getPage()
 });
 
 // 5服药、使用化学药剂史
-app.controller('medicationCtrl', function ($scope, $rootScope, $http) {
+app.controller('medicationCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("medicationCtrl  p5");
 	$(".icon-yao").addClass("active")
 	$rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
+
+	// 当前模块号
+	var thisModule = 5;
+
+	// 答案数组
+	$scope.userAnswer = []
+
+	// 填空答题
+	$scope.fillBlank = function (uuid, value) {
+		alert("s")
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [value]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [value];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 单选题选择事件
+	$scope.chooseSin = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [option];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 多选题答题事件
+	$scope.chooseDou = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					var judgeOption = false;
+					_.each(b.answerId, function (ans, k) {
+						if (ans == option) {
+							b.answerId.splice(k, 1)
+							// 若已选过，则删除这个 option
+							judgeOption = true;
+						}
+					})
+					if (!judgeOption) {
+						b.answerId.push(option)
+					}
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 渲染题目
+	$scope.setModFiveQue = function (tagArr) {
+		console.log(tagArr)
+		$scope.setModFive = tagArr;
+	}
+
+	// 请求题目
+	$scope.getPage = function () {
+		$http.post(allFactory.ipAddress, {
+				'teleNum': allFactory.teleNum,
+				'paperModule': thisModule
+			})
+			.success(function (resp) {
+				console.log(resp)
+				if (resp.msg) {
+					$scope.modFive = sumWeight(_.flatten(resp.body.questions));
+					// console.log(sumWeight($scope.modOne))
+					$scope.setModFiveQue($scope.modFive);
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+					$scope.alertLogin()
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	// 用户回答
+	httpAnswer = function () {
+		$http.post(allFactory.setAnwserAddress, {
+				"userId": allFactory.userId,
+				"paperModule": thisModule,
+				"answer": $scope.userAnswer
+			})
+			.success(function (resp) {
+				if (resp.msg) {
+					console.log(resp.body)
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	$scope.nextMode = function () {
+		$state.go('breast', {})
+	}
+
+	$scope.getPage()
 });
 
 // 6乳腺相关知识
-app.controller('breastCtrl', function ($scope, $rootScope, $http) {
+app.controller('breastCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("breastCtrl  p6");
 	$(".icon-zhishichanquan2").addClass("active")
 	$rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
+
+	// 当前模块号
+	var thisModule = 6;
+
+	// 答案数组
+	$scope.userAnswer = []
+
+	// 填空答题
+	$scope.fillBlank = function (uuid, value) {
+		alert("s")
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [value]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [value];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 单选题选择事件
+	$scope.chooseSin = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					b.answerId = [option];
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 多选题答题事件
+	$scope.chooseDou = function (uuid, option) {
+		var thisQues = {
+			"UUID": uuid,
+			"answerId": [option]
+		}
+
+		// 若答过就不添加只修改
+		if ($scope.userAnswer.length != 0) {
+			var judgeHaveAnswered = false;
+			_.each($scope.userAnswer, function (b) {
+				if (b.UUID == uuid) {
+					var judgeOption = false;
+					_.each(b.answerId, function (ans, k) {
+						if (ans == option) {
+							b.answerId.splice(k, 1)
+							// 若已选过，则删除这个 option
+							judgeOption = true;
+						}
+					})
+					if (!judgeOption) {
+						b.answerId.push(option)
+					}
+					judgeHaveAnswered = true;
+				}
+			})
+			if (!judgeHaveAnswered) {
+				$scope.userAnswer.push(thisQues)
+			}
+		} else {
+			$scope.userAnswer.push(thisQues)
+		}
+		console.log($scope.userAnswer)
+	}
+
+	// 渲染题目
+	$scope.setModSixQue = function (tagArr) {
+		console.log(tagArr)
+		$scope.setModSix = tagArr;
+	}
+
+	// 请求题目
+	$scope.getPage = function () {
+		$http.post(allFactory.ipAddress, {
+				'teleNum': allFactory.teleNum,
+				'paperModule': thisModule
+			})
+			.success(function (resp) {
+				console.log(resp)
+				if (resp.msg) {
+					$scope.modSix = sumWeight(_.flatten(resp.body.questions));
+					// console.log(sumWeight($scope.modOne))
+					$scope.setModSixQue($scope.modSix);
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+					$scope.alertLogin()
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	// 用户回答
+	httpAnswer = function () {
+		$http.post(allFactory.setAnwserAddress, {
+				"userId": allFactory.userId,
+				"paperModule": thisModule,
+				"answer": $scope.userAnswer
+			})
+			.success(function (resp) {
+				if (resp.msg) {
+					console.log(resp.body)
+				} else {
+					swal('网络错误，请重试', resp.errorText, 'error')
+				}
+			})
+			.error(function (data, header, config, status) {
+				swal('网络错误', '错误信息：' + header, 'error')
+			});
+	}
+
+	$scope.finishAll = function () {
+		swal('提交成功','','success')
+	}
+
+	$scope.getPage()
 });
 
 app.controller('loginCtrl', function ($scope, $rootScope, $http) {
