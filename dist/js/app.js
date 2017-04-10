@@ -132,7 +132,7 @@ function makeSwiper() {
 
 // 计算权重的函数
 var sumWeight = function (tagArr) {
-	debugger
+	// debugger
 	var tagArrResult = [];
 	for (var secQue = 0; secQue < tagArr.length; secQue++) {
 		if (tagArr[secQue].options && (tagArr[secQue].questionAnswerType == '0' || tagArr[secQue].questionAnswerType == '1' || tagArr[secQue].questionAnswerType == '2' || tagArr[secQue].questionAnswerType == '4' || tagArr[secQue].questionAnswerType == '5' || tagArr[secQue].questionAnswerType == '7')) {
@@ -149,7 +149,7 @@ var sumWeight = function (tagArr) {
 
 // 计算切割位置并切割
 var splitWeight = function (tagArr, origionArr) {
-	debugger
+	// debugger
 	var i = 0,
 		sum = 0,
 		tagArrResult = [];
@@ -235,7 +235,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 			allFactory.password = result;
 			allFactory.HASHPASSWD = md5.createHash(result);
 
-			debugger
+			// debugger
 			$http.post(allFactory.postLogin, {
 					"teleNum": allFactory.teleNum,
 					"password": allFactory.HASHPASSWD,
@@ -250,7 +250,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 						$scope.getPage();
 						// putcookiecookie，自动登录
 						if (allFactory.isRemember) {
-							debugger
+							// debugger
 							window.localStorage.userInfo = JSON.stringify({
 								teleNum: allFactory.teleNum,
 								password: allFactory.HASHPASSWD
