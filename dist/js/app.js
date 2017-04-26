@@ -119,11 +119,15 @@ function makeSwiper() {
 		paginationClickable: true,
 		pagination: '.swiper-pagination',
 		iOSEdgeSwipeDetection: true,
+		// autoplayDisableOnInteraction : false,
+		// observer: true, //修改swiper自己或子元素时，自动初始化swiper
+		// observeParents: true, //修改swiper的父元素时，自动初始化swiper
 		flip: {
 			slideShadows: false
 		},
 		onTransitionEnd: function (swiper, event) {
 			console.log("slide")
+			debugger
 			httpAnswer(); //TODO:后期可以做一些模块化处理
 		}
 	};
@@ -1373,7 +1377,7 @@ app.controller('breastCtrl', function ($scope, $rootScope, $http, $cookies, $coo
 	}
 
 	$scope.finishAll = function () {
-		swal('提交成功','','success')
+		swal('提交成功', '', 'success')
 	}
 
 	$scope.getPage()
