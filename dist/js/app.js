@@ -220,7 +220,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 		// takePagesNum(tagArr)
 	}
 	// 登录弹窗
-	$scope.alertLogin = function () {
+	$rootScope.alertLogin = function () {
 		swal({
 			title: '登录',
 			// type: 'warning',
@@ -298,7 +298,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 
 					} else {
 						swal('错误', resp.errorText, 'error').then(function () {
-							$scope.alertLogin()
+							$rootScope.alertLogin()
 						})
 					}
 				});
@@ -431,7 +431,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 		}, function (dismiss) {
 			if (dismiss === 'cancel') {
 				swal.resetDefaults()
-				$scope.alertLogin()
+				$rootScope.alertLogin()
 			}
 		})
 	}
@@ -550,7 +550,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 					$scope.setModOneQue($scope.modOne);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
@@ -583,13 +583,13 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 
 	// 测试代码
 	// $scope.getPage()
-	// $scope.alertLogin();
+	// $rootScope.alertLogin();
 	// if (allFactory.isLogin) {
 	// 	$scope.getPage()
 	// 	// allFactory.userId = $scope.cookUser.userId;
 	// 	// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	// } else {
-	// 	$scope.alertLogin();
+	// 	$rootScope.alertLogin();
 	// }
 
 
@@ -602,7 +602,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 		// allFactory.userId = $scope.cookUser.userId;
 		// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	} else {
-		$scope.alertLogin();
+		$rootScope.alertLogin();
 	}
 });
 
@@ -728,7 +728,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 					$scope.setModTwoQue($scope.modTwo);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
@@ -766,13 +766,13 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 
 	// 测试代码
 	// $scope.getPage()
-	// $scope.alertLogin();
+	// $rootScope.alertLogin();
 	// if (allFactory.isLogin) {
 	// 	$scope.getPage()
 	// 	// allFactory.userId = $scope.cookUser.userId;
 	// 	// allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	// } else {
-	// 	$scope.alertLogin();
+	// 	$rootScope.alertLogin();
 	// }
 
 	// // 拿到 cookie
@@ -786,7 +786,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	// 	allFactory.userId = $scope.cookUser.userId;
 	// 	allFactory.HASHPASSWD = $scope.cookUser.HASHPASSWD;
 	// } else {
-	// 	$scope.alertLogin();
+	// 	$rootScope.alertLogin();
 	// }
 });
 
@@ -909,7 +909,7 @@ app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http, $cooki
 					$scope.setModThreeQue($scope.modThree);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
@@ -1065,7 +1065,7 @@ app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http, $cookie
 					$scope.setModFourQue($scope.modFour);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
@@ -1221,7 +1221,7 @@ app.controller('medicationCtrl', function ($scope, $rootScope, $http, $cookies, 
 					$scope.setModFiveQue($scope.modFive);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
@@ -1377,7 +1377,7 @@ app.controller('breastCtrl', function ($scope, $rootScope, $http, $cookies, $coo
 					$scope.setModSixQue($scope.modSix);
 				} else {
 					swal('网络错误，请重试', resp.errorText, 'error')
-					$scope.alertLogin()
+					$rootScope.alertLogin()
 				}
 			})
 			.error(function (data, header, config, status) {
