@@ -64,6 +64,9 @@
 			<div class="infoNext" ng-if="$index != setModSix.length - 1">
 				<span>———— 请左划继续答题 ————</span>
 			</div>
+			<div class="netxPageBtn" ng-if="$index == 0">
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="prevMode()">上一组</button>
+			</div>
 			<div class="netxPageBtn" ng-if="$index == setModSix.length - 1">
 				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="finishAll()">提交答案</button>
 			</div>

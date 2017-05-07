@@ -99,6 +99,21 @@ app.filter('to_trusted', ['$sce', function ($sce) {
 	};
 }]);
 
+app.filter('to_compile', ['scope', '$compilr', function (scope, $compile) {
+	return function (text) {
+		return $compile(text)($scope);
+	};
+}]);
+
+app.filter('httpClickFilter', function ($sce, $compile, $rootScope) {
+    $rootScope.httpLinkClick = function () {
+        console.log(234);
+    };
+    return function (inputText) {
+        return $sce.trustAsHtml($compile('<div style="background-color:#000">' + inputText + '</div>')($rootScope).html());
+    }
+});
+
 // 监听 ng-reapeat 完成
 app.directive('repeatFinish', function () {
 	return {
@@ -127,7 +142,7 @@ function makeSwiper() {
 		},
 		onTransitionEnd: function (swiper, event) {
 			console.log("slide")
-			debugger
+			// debugger
 			httpAnswer(); //TODO:后期可以做一些模块化处理
 		}
 	};
@@ -192,7 +207,7 @@ var takePagesNum = function (tagArr) {
 }
 
 // 1个人信息
-app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
+app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5, $compile) {
 
 	// 进入页面一些初始化配置
 	console.log("personalCtrl  p1");
@@ -517,6 +532,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 	// 渲染题目
 	$scope.setModOneQue = function (tagArr) {
 		console.log(tagArr)
+		// $compile(tagArr)($scope)
 		$scope.setModOne = tagArr;
 	}
 
@@ -742,6 +758,9 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 	$scope.nextMode = function () {
 		$state.go('medicalHistory', {})
 	}
+	$scope.prevMode = function () {
+		$state.go('personal', {})
+	}
 
 	$scope.getPage()
 
@@ -920,6 +939,9 @@ app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http, $cooki
 	$scope.nextMode = function () {
 		$state.go('habitsCustoms', {})
 	}
+	$scope.prevMode = function () {
+		$state.go('basicSituation', {})
+	}
 
 	$scope.getPage()
 });
@@ -1072,6 +1094,9 @@ app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http, $cookie
 
 	$scope.nextMode = function () {
 		$state.go('medication', {})
+	}
+	$scope.prevMode = function () {
+		$state.go('medicalHistory', {})
 	}
 
 	$scope.getPage()
@@ -1226,6 +1251,9 @@ app.controller('medicationCtrl', function ($scope, $rootScope, $http, $cookies, 
 	$scope.nextMode = function () {
 		$state.go('breast', {})
 	}
+	$scope.prevMode = function () {
+		$state.go('habitsCustoms', {})
+	}
 
 	$scope.getPage()
 });
@@ -1378,6 +1406,9 @@ app.controller('breastCtrl', function ($scope, $rootScope, $http, $cookies, $coo
 
 	$scope.finishAll = function () {
 		swal('提交成功', '', 'success')
+	}
+	$scope.prevMode = function () {
+		$state.go('medication', {})
 	}
 
 	$scope.getPage()
