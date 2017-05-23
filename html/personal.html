@@ -8,13 +8,13 @@
 					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span><span class="chooseInfo">(多选)</span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
-										ng-repeat="itemOption in ques.options">
+						    ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
 							<input type="checkbox" class="weui-check" ng-click="chooseDou(ques.UUID,itemOption.anwserId)" name="checkbox-{{itemOption.anwserId}}" id="checkbox-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
 						</div>
 						<div class="weui-cell__bd">
-							<h5 ng-bind-html="itemOption.anwserContent"></h5>
+							<h5 ng-bind-html="itemOption.anwserContent | to_trusted"></h5>
 						</div>
 					</label>
 					</div>
@@ -24,7 +24,7 @@
 					<div class="weui-cells__title"><span ng-bind="ques.questionContent"></span></div>
 					<div class="weui-cells weui-cells_checkbox">
 						<label class="weui-cell weui-check__label" id="{{ques.UUID}}" for="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}"
-										ng-repeat="itemOption in ques.options">
+						    ng-repeat="itemOption in ques.options">
 						<div class="weui-cell__hd">
 							<input type="radio" class="weui-check" ng-click="chooseSin(ques.UUID,itemOption.anwserId)" name="radio-{{ques.UUID}}" id="radio-{{ques.UUID}}-{{itemOption.anwserId}}-{{$index}}">
 							<i class="weui-icon-checked"></i>
@@ -40,7 +40,7 @@
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">
 							<div class="weui-cell__hd fillInput_name">
-								<label class="weui-label" ng-bind-html="ques.questionContent | httpClickFilter"></label>
+								<label class="weui-label" ng-bind-html="ques.questionContent | to_trusted"></label>
 							</div>
 						</div>
 						<div class="weui-cell">
