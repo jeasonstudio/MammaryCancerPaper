@@ -212,7 +212,7 @@ app.controller('personalCtrl', function ($scope, $rootScope, $http, $cookies, $c
 	// 进入页面一些初始化配置
 	console.log("personalCtrl  p1");
 	$(".icon-gerenxinxi").addClass("active")
-	$rootScope.swiper = makeSwiper()
+	// $rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
 
 	$scope.setModOneQue = function (tagArr) {
@@ -794,7 +794,7 @@ app.controller('basicSituationCtrl', function ($scope, $rootScope, $http, $cooki
 app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("medicalHistoryCtrl  p3");
 	$(".icon-bingli").addClass("active")
-	$rootScope.swiper = makeSwiper()
+	// $rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
 
 	// 当前模块号
@@ -950,7 +950,7 @@ app.controller('medicalHistoryCtrl', function ($scope, $rootScope, $http, $cooki
 app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("habitsCustomsCtrl  p4");
 	$(".icon-shenghuo").addClass("active")
-	$rootScope.swiper = makeSwiper()
+	// $rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
 
 	// 当前模块号
@@ -1106,7 +1106,7 @@ app.controller('habitsCustomsCtrl', function ($scope, $rootScope, $http, $cookie
 app.controller('medicationCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("medicationCtrl  p5");
 	$(".icon-yao").addClass("active")
-	$rootScope.swiper = makeSwiper()
+	// $rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
 
 	// 当前模块号
@@ -1262,7 +1262,7 @@ app.controller('medicationCtrl', function ($scope, $rootScope, $http, $cookies, 
 app.controller('breastCtrl', function ($scope, $rootScope, $http, $cookies, $cookieStore, $state, md5) {
 	console.log("breastCtrl  p6");
 	$(".icon-zhishichanquan2").addClass("active")
-	$rootScope.swiper = makeSwiper()
+	// $rootScope.swiper = makeSwiper()
 	$(".swiper-slide").height($(window).height() - 50);
 
 	// 当前模块号
